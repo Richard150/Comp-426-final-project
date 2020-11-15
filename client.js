@@ -1,3 +1,4 @@
+//commeting to see if things will work
 $(function () {
     let socket = io();
     let myName = '';
