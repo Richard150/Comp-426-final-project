@@ -30,11 +30,16 @@ class Room {
         this.game.onSubmitAction(this.actionSubmitted);
         this.game.onNewTurn(this.newTurn);
 
+        console.log(this);
+
+        this.game.resolveTurn();
+
         this.io.to(this.roomName).emit('room update', this.dataToClient);
 
     }
 
     newTurn(data) {
+        console.log(this);
         this.gameData.lockedIn = [];
         this.gameData.data = data;
 
@@ -80,7 +85,7 @@ class Room {
             this.userList.splice(index, 1);
             socket.leave(this.roomName);
             socket.join('lobby');
-            
+
             if (this.gameActive) {
                 this.game.kill(socket.userName);
             }

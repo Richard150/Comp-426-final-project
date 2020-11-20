@@ -101,6 +101,15 @@ io.on('connection', (socket) => {
        leaveRoom(socket);
     });
 
+    socket.on('start game', () => {
+        let roomName = registry[socket.id];
+        // if the room exists, the person emitting this event is the room leader, and the room doesn't have a game going...
+        if(rooms[roomName] != undefined && socket.userName == rooms[roomName].leader && !rooms[roomName].gameData.live) {
+            rooms[roomName].createGame();
+            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
+        }
+    });
+
     // when the user sends a message, we do the following:
     socket.on('send message', (message) => {
         let roomName = registry[socket.id];

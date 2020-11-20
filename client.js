@@ -44,10 +44,10 @@ $(function () {
         let chatlog = roomdata.chatlog;             // array of messages to display in chat (indexed 0, 1, ...)
         let usernames = roomdata.usernames;         // array of usernames in the room (indexed 0, 1, ...)
         let leader = roomdata.leader;               // name of room leader
-        let gameData = roomdata.gameData;           // object containing information about the game
+        let gameData = roomdata.game;               // object containing information about the game
         let gameLive = gameData.live;               // "true" if there is a game going on. "false" if there is not
         let lockedIn = gameData.lockedIn;           // array of usernames of players who submitted their commands
-        let winner = gameData.winner;               // name of game winner. empty string if no winner yet, "$nobody" if everybody died
+        let winner = gameData.winner;               // name of last game's winner. empty string if no winner yet, "$nobody" if everybody died
         let turnSummary = gameData.data.summary;    // array of strings describing what happened the previous turn (indexed 0, 1, ...) (ex: 'alice blocked bob's attack')
         let players = gameData.data.players;        // object containing player information, indexed by player name
 
@@ -65,9 +65,19 @@ $(function () {
         $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
 
         // render game
+        $('.gameview').html(''); // clear whats there
+
         if (gameLive || winner != '') { // we would like to render the game if a game is going on OR if a game happened & a winner was declared
             
-        } else {
+        } else { // this room has never had a game start before
+            $('.gameview').append('No game to display');
+
+            if(myName == leader) {
+                $('.gameview').append(`<button id='startgame'>start game</button>`);
+                $('#startgame').click(function() {
+                    socket.emit('start game');
+                });
+            }
         }
 
 
@@ -80,7 +90,7 @@ $(function () {
     });
 
     $('#leaveroombutton').click(function(){
-        socket.emit('leave room', currentRoom);
+        socket.emit('leave room');
         currentRoom = 'lobby';
         $('.lobby').removeClass('hidden');
         $('.roomchat').addClass('hidden');
