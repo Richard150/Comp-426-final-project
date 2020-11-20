@@ -40,14 +40,30 @@ $(function () {
         $('.availablerooms').html(roomList);
     });
 
-    socket.on('room userlist', function(usernames) {
-        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>users online:</strong>');
-        $('.usersinroom').html(userList);
-    });
+    socket.on('room update', function(roomdata) {
+        let chatlog = roomdata.chatlog;             // array of messages to display in chat (indexed 0, 1, ...)
+        let usernames = roomdata.usernames;         // array of usernames in the room (indexed 0, 1, ...)
+        let leader = roomdata.leader;               // name of room leader
+        let gameData = roomdata.gameData;           // object containing information about the game
+        let gameLive = gameData.live;               // "true" if there is a game going on. "false" if there is not
+        let lockedIn = gameData.lockedIn;           // array of usernames of players who submitted their commands
+        let winner = gameData.winner;               // name of game winner. empty string if no winner yet, "$nobody" if everybody died
+        let turnSummary = gameData.data.summary;    // array of strings describing what happened the previous turn (indexed 0, 1, ...) (ex: 'alice blocked bob's attack')
+        let players = gameData.data.players;        // object containing player information, indexed by player name
 
-    socket.on('chat update', function(chatlog) {
-        let chat = chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>');
-        $('.chatbox').html(chat);
+        /**
+         * players['bob'].health = bob's health (0, 1, 2, 3, 4)
+         * players['bob'].action = what bob did last turn; if bob attacked, this will be the name of the player bob attacked
+         * players['bob'].shieldReady = true if bob can block, false if bob cant block
+         * players['bob'].availableActions = array of actions bob can make 
+         *                                   (can always attack/counter, can only heal under 4 hp, can only block with shield up, repair with shield down)
+         */
+
+        let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${curr} (Host)` : `<br>${curr}`, '<strong>users online:</strong>');
+        $('.usersinroom').html(userList);
+        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
+
+
     });
 
     $('.availablerooms').on("click", ".roombutton", function(){

@@ -1,5 +1,3 @@
-let nonAttackActions = ['attack', 'block', 'counter', 'heal', 'repair'];
-
 class Game {
     constructor(userList) {
         this.playerList = [];
@@ -8,6 +6,9 @@ class Game {
         });
 
         this.actionList = [];
+
+        this.submitActionCallbacks = [];
+        this.newTurnCallbacks = [];
     }
 
     submitAction(playerName, action, target = undefined) {
@@ -28,12 +29,23 @@ class Game {
             }
 
             if (this.playerList.findIndex(p => p.action == 'undecided' && p.health > 0) == -1) {
-                
                 this.resolveTurn();
-                
+            } else {
+                this.submitActionUpdate(playerName);
             }
         } else {
-            console.log('command rejected');
+            this.submitActionUpdate(playerName + '$rejected$');
+        }
+    }
+
+    kill(playerName) {
+        let idx = this.playerList.indexOf(p => p.userName == playerName && p.health > 0);
+        if (idx != -1) {
+            this.playerList[idx].health = 0;
+            
+            if (this.playerList.findIndex(p => p.action == 'undecided' && p.health > 0) == -1) {
+                this.resolveTurn();
+            }
         }
     }
 
@@ -94,15 +106,38 @@ class Game {
             }
         });
 
+        let data = {};
+        data.summary = this.actionList;
+        data.players = [];
+
         this.playerList.forEach(p => {
+            let action = '';
+            if (p.action == 'attack') {
+                action = p.target;
+            } else {
+                action = p.action;
+            }
+
+            let availableActions = ['attack', 'counter'];
+            availableActions.push(p.shieldReady ? 'block' : 'repair');
+            if (p.health < 4) {
+                availableActions.push('heal');
+            }
+
+            data.players[p.userName] = {
+                action: p.action == 'attack' ? p.target.userName : p.action,
+                health: p.health,
+                shieldReady: p.shieldReady,
+                availableActions: availableActions
+            };
+
             p.action = 'undecided';
             p.target = '$none';
             p.attackers = [];
+            
         });
-
         
-        this.printActionList();
-        this.printPlayers();
+        this.newTurnUpdate(data);
     }
 
     updateTurnSummary(connection, p1, p2) {
@@ -145,25 +180,56 @@ class Game {
             case 'idled': 
                 if(p1.health > 0) this.actionList.push(`${player1} twiddled their thumbs`);
                 break;
-        }
-
-        
+        }        
     }
     
-    printPlayers() {
-        this.playerList.forEach(p => {
-            console.log(`(${p.health}) ${p.userName} ${p.shieldReady ? '' : '*shield down!* '}`);
-            // `action: ${p.action}, target: ${p.target != undefined ? p.target.userName : ''}, attackers: [${this.attackersToString(p)}]`
-        });
+    // printPlayers() {
+    //     this.playerList.forEach(p => {
+    //         console.log(`(${p.health}) ${p.userName} ${p.shieldReady ? '' : '*shield down!* '}`);
+    //         // `action: ${p.action}, target: ${p.target != undefined ? p.target.userName : ''}, attackers: [${this.attackersToString(p)}]`
+    //     });
+    // }
+
+    // printActionList() {
+    //     let str = this.actionList.reduce((acc, curr) => acc + curr + '\n', '').slice(0, -1);
+    //     console.log(str);
+    // }
+
+    // attackersToString(player) {
+    //     return player.attackers.reduce((acc, curr) => acc + ', ' + curr.userName, '').slice(2);
+    // }
+
+    onSubmitAction(callback) {
+        let idx = this.submitActionCallbacks.findIndex((c) => c == callback);
+        if (idx == -1) {
+            this.submitActionCallbacks.push(callback);
+        }
     }
 
-    printActionList() {
-        let str = this.actionList.reduce((acc, curr) => acc + curr + '\n', '').slice(0, -1);
-        console.log(str);
+    onNewTurn(callback) {
+        let idx = this.newTurnCallbacks.findIndex((c) => c == callback);
+        if (idx == -1) {
+            this.newTurnCallbacks.push(callback);
+        }
     }
 
-    attackersToString(player) {
-        return player.attackers.reduce((acc, curr) => acc + ', ' + curr.userName, '').slice(2);
+    onGameEnd(callback) {
+        let idx = this.gameEndCallbacks.findIndex((c) => c == callback);
+        if (idx == -1) {
+            this.gameEndCallBacks.push(callback);
+        }
+    }
+
+    submitActionUpdate(user) {
+        this.submitActionCallbacks.forEach(c => c(user));
+    }
+
+    newTurnUpdate(data) {
+        this.newTurnCallbacks.forEach(c => c(data));
+    }
+
+    gameEndUpdate(data) {
+        this.gameEndCallbacks.forEach(c => c(data))
     }
 
 }
@@ -175,8 +241,7 @@ function makePlayer(name) {
         shieldReady: true,
         action: 'undecided',
         target: '$none',
-        attackers: [],
-        inSummary: false
+        attackers: []
     }
 }
 

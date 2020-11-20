@@ -58,6 +58,10 @@ io.on('connection', (socket) => {
         delete usernames[socket.id];
         // let everybody know the guest list changed
         io.emit('new name list', Object.values(usernames)); 
+
+        leaveRoom(socket);
+
+        delete registry[socket.id];
     });
 
     // when the user inputs a username, we do the following:
@@ -77,7 +81,7 @@ io.on('connection', (socket) => {
     socket.on('create room', (roomName) => {
         roomName = roomName.replace(/\W /g,'').substring(0,20);
         if (rooms[roomName] == undefined && roomName != 'lobby'  && socket.loggedIn) {
-            rooms[roomName] = new Room(socket, roomName);
+            rooms[roomName] = new Room(io, socket, roomName);
         }
 
         io.emit('roomlist update', Object.keys(rooms));
@@ -88,18 +92,13 @@ io.on('connection', (socket) => {
         if (rooms[roomName] != undefined && socket.loggedIn) {
             rooms[roomName].userJoin(socket);
             registry[socket.id] = roomName;
-            io.in(roomName).emit('room userlist', rooms[roomName].userList);
-            socket.emit('chat update', rooms[roomName].chatlog);
+            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
         }
     });
 
     // when the user leaves a room they joined, we do the following:
-    socket.on('leave room', (roomName) => {
-       if (rooms[roomName] != undefined) {
-           rooms[roomName].userLeave(socket);
-           registry[socket.id] = 'lobby';
-           io.in(roomName).emit('room userlist', rooms[roomName].userList);
-       }
+    socket.on('leave room', () => {
+       leaveRoom(socket);
     });
 
     // when the user sends a message, we do the following:
@@ -107,7 +106,7 @@ io.on('connection', (socket) => {
         let roomName = registry[socket.id];
         if (rooms[roomName] != undefined) {
             rooms[roomName].message(socket, message);
-            io.in(roomName).emit('chat update', rooms[roomName].chatlog);
+            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
         }
     });
 
@@ -123,7 +122,19 @@ let chooseName = (socket, name) => {
         io.emit('new name list', Object.values(usernames)); // let everybody know the updated name list
     }
 
-}  
+}
+
+let leaveRoom = (socket) => {
+    let roomName = registry[socket.id];
+    if (roomName != 'lobby' && roomName != undefined) {
+        rooms[roomName].userLeave(socket);
+        io.in(roomName).emit('room update', rooms[roomName].dataToClient);
+        if (rooms[roomName].userList.length == 0) {
+            delete rooms[roomName];
+            io.emit('roomlist update', Object.keys(rooms));
+        }
+    }
+}
 
 http.listen(3000, () => {
     console.log('listening on *:3000');

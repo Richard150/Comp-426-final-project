@@ -1,8 +1,61 @@
+const Game = require("./Game");
+
 class Room {
-    constructor(creatorSocket, roomName) {
+    constructor(io, creatorSocket, roomName) {
+        this.io = io;
         this.userList = [];
         this.roomName = roomName;
         this.chatlog = [];
+        this.gameData = {
+            live: false,
+            lockedIn: [],
+            data: {},
+            winner: ''
+        };
+
+        this.leader = creatorSocket.userName;
+
+        this.dataToClient = {
+            usernames: this.userList,
+            chatlog: this.chatlog,
+            leader: this.leader,
+            game: this.gameData
+        }
+    }
+
+    createGame() {
+        this.game = new Game(this.userList);
+        this.gameData.live = true;
+
+        this.game.onSubmitAction(this.actionSubmitted);
+        this.game.onNewTurn(this.newTurn);
+
+        this.io.to(this.roomName).emit('room update', this.dataToClient);
+
+    }
+
+    newTurn(data) {
+        this.gameData.lockedIn = [];
+        this.gameData.data = data;
+
+        let livingPlayers = Object.values(data.players).filter(p => p.health > 0);
+
+        this.gameData.live = livingPlayers.length > 1;
+
+        if(!this.gameData.live) {
+            if(livingPlayers.length == 0) {
+                this.gameData.winner = '$nobody'
+            } else {
+                this.gameData.winner = Object.keys(data.players).find(p => data.players[p].health > 0);
+            }
+        }
+
+        this.io.to(this.roomName).emit('room update', this.dataToClient);
+    }
+
+    actionSubmitted(player) { // this covers when a user submits an action that /does not/ advance the game to the next turn
+        this.gameData.lockedIn.push(player);
+        this.io.to(this.roomName).emit('room update', this.dataToClient);
     }
 
     userJoin(socket) {
@@ -19,6 +72,14 @@ class Room {
             this.userList.splice(index, 1);
             socket.leave(this.roomName);
             socket.join('lobby');
+            // if (this.gameActive) {
+            //     this.game.kill(socket.userName);
+            // }
+
+            if (socket.userName == this.leader) {
+                this.leader = this.userList[0];
+                this.dataToClient.leader = this.leader;
+            }
         }
     }
 
