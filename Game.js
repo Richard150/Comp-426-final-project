@@ -106,7 +106,7 @@ class Game {
 
         let data = {};
         data.summary = this.actionList;
-        data.players = [];
+        data.players = {};
 
         this.playerList.forEach(p => {
             let action = '';

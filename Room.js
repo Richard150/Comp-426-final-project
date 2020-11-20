@@ -50,7 +50,10 @@ class Room {
         }
 
         this.io.to(this.roomName).emit('room update', this.dataToClient);
-        console.log(this.dataToClient);
+        console.log(this.dataToClient.game.data.players);
+        console.log(this.dataToClient.game.data.summary);
+
+        this.io.to(this.roomName).emit('playerlist', this.dataToClient.game.data.summary);
     }
 
     actionSubmitted(player) { // this covers when a user submits an action that /does not/ advance the game to the next turn

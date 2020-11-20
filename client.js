@@ -40,6 +40,10 @@ $(function () {
         $('.availablerooms').html(roomList);
     });
 
+    socket.on('playerlist', function(list) {
+        console.log(list);
+    });
+
     socket.on('room update', function(roomdata) {
         let chatlog = roomdata.chatlog;             // array of messages to display in chat (indexed 0, 1, ...)
         let usernames = roomdata.usernames;         // array of usernames in the room (indexed 0, 1, ...)
@@ -50,6 +54,8 @@ $(function () {
         let winner = gameData.winner;               // name of last game's winner. empty string if no winner yet, "$nobody" if everybody died
         let turnSummary = gameData.data.summary;    // array of strings describing what happened the previous turn (indexed 0, 1, ...) (ex: 'alice blocked bob's attack')
         let players = gameData.data.players;        // object containing player information, indexed by player name
+
+        console.log(roomdata);
 
         /**
          * players['bob'].health = bob's health (0, 1, 2, 3, 4)
@@ -65,15 +71,39 @@ $(function () {
         $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
 
         // render game
-        $('.gameview').html(''); // clear whats there
+        let $gameview = $('.gameview');
+        $gameview.html(''); // clear whats there
 
         if (gameLive || winner != '') { // we would like to render the game if a game is going on OR if a game happened & a winner was declared
-            
+            $gameview.append('<strong>turn summary:</strong>')
+            turnSummary.forEach(str => {
+                $gameview.append('<br>' + str);
+            });
+            $gameview.append('<br><strong>player status:</strong>');
+
+            console.log(players);
+
+            Object.keys(players).forEach(p => {
+                let str = p + ' ';
+                let player = players[p]
+                if (player.health < 1) {
+                    str += '☠';
+                } else {
+                    for (let i = 0; i < player.health; i++) {
+                        str += '♥';
+                    }
+                    if (player.shieldReady) {
+                        str += '🛡';
+                    }
+                }
+                $gameview.append('<br>' + str);
+            });
+
         } else { // this room has never had a game start before
-            $('.gameview').append('No game to display');
+            $gameview.append('No game to display');
 
             if(myName == leader) {
-                $('.gameview').append(`<button id='startgame'>start game</button>`);
+                $gameview.append(`<button id='startgame'>start game</button>`);
                 $('#startgame').click(function() {
                     socket.emit('start game');
                 });
