@@ -54,8 +54,16 @@ class Room {
     }
 
     actionSubmitted(player) { // this covers when a user submits an action that /does not/ advance the game to the next turn
-        this.gameData.lockedIn.push(player);
-        this.io.to(this.roomName).emit('room update', this.dataToClient);
+        if (!player.includes("$")) { // 'player$rejected$' means the command wasn't accepted
+            this.gameData.lockedIn.push(player);
+            this.io.to(this.roomName).emit('room update', this.dataToClient);
+        }
+    }
+
+    submitAction(socket, action, target) {
+        if (this.userList.includes(socket.userName)) {
+            this.game.submitAction(socket.userName, action, target);
+        }
     }
 
     userJoin(socket) {
@@ -72,9 +80,10 @@ class Room {
             this.userList.splice(index, 1);
             socket.leave(this.roomName);
             socket.join('lobby');
-            // if (this.gameActive) {
-            //     this.game.kill(socket.userName);
-            // }
+            
+            if (this.gameActive) {
+                this.game.kill(socket.userName);
+            }
 
             if (socket.userName == this.leader) {
                 this.leader = this.userList[0];

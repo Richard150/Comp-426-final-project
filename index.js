@@ -110,6 +110,13 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('send action', (action) => {
+        let roomName = registry[socket.id];
+        if (rooms[roomName] != undefined) {
+            rooms[roomName].submitAction(socket, action);
+        }
+    });
+
 });
 
 // HOW TO SET A USER'S USERNAME //////////////////////////////

@@ -59,9 +59,16 @@ $(function () {
          *                                   (can always attack/counter, can only heal under 4 hp, can only block with shield up, repair with shield down)
          */
 
+        // render chat & userlist
         let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${curr} (Host)` : `<br>${curr}`, '<strong>users online:</strong>');
         $('.usersinroom').html(userList);
         $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
+
+        // render game
+        if (gameLive || winner != '') { // we would like to render the game if a game is going on OR if a game happened & a winner was declared
+            
+        } else {
+        }
 
 
     });
