@@ -6,9 +6,6 @@ class Game {
         });
 
         this.actionList = [];
-
-        this.submitActionCallbacks = [];
-        this.newTurnCallbacks = [];
     }
 
     submitAction(playerName, action, target = undefined) {
@@ -29,12 +26,13 @@ class Game {
             }
 
             if (this.playerList.findIndex(p => p.action == 'undecided' && p.health > 0) == -1) {
-                this.resolveTurn();
+                let data = this.resolveTurn();
+                return data;
             } else {
-                this.submitActionUpdate(playerName);
+                return 'accepted'
             }
         } else {
-            this.submitActionUpdate(playerName + '$rejected$');
+            return 'rejected'
         }
     }
 
@@ -137,7 +135,7 @@ class Game {
             
         });
         
-        this.newTurnUpdate(data);
+        return data;
     }
 
     updateTurnSummary(connection, p1, p2) {
@@ -182,56 +180,6 @@ class Game {
                 break;
         }        
     }
-    
-    // printPlayers() {
-    //     this.playerList.forEach(p => {
-    //         console.log(`(${p.health}) ${p.userName} ${p.shieldReady ? '' : '*shield down!* '}`);
-    //         // `action: ${p.action}, target: ${p.target != undefined ? p.target.userName : ''}, attackers: [${this.attackersToString(p)}]`
-    //     });
-    // }
-
-    // printActionList() {
-    //     let str = this.actionList.reduce((acc, curr) => acc + curr + '\n', '').slice(0, -1);
-    //     console.log(str);
-    // }
-
-    // attackersToString(player) {
-    //     return player.attackers.reduce((acc, curr) => acc + ', ' + curr.userName, '').slice(2);
-    // }
-
-    onSubmitAction(callback) {
-        let idx = this.submitActionCallbacks.findIndex((c) => c == callback);
-        if (idx == -1) {
-            this.submitActionCallbacks.push(callback);
-        }
-    }
-
-    onNewTurn(callback) {
-        let idx = this.newTurnCallbacks.findIndex((c) => c == callback);
-        if (idx == -1) {
-            this.newTurnCallbacks.push(callback);
-        }
-    }
-
-    onGameEnd(callback) {
-        let idx = this.gameEndCallbacks.findIndex((c) => c == callback);
-        if (idx == -1) {
-            this.gameEndCallBacks.push(callback);
-        }
-    }
-
-    submitActionUpdate(user) {
-        this.submitActionCallbacks.forEach(c => c(user));
-    }
-
-    newTurnUpdate(data) {
-        this.newTurnCallbacks.forEach(c => c(data));
-    }
-
-    gameEndUpdate(data) {
-        this.gameEndCallbacks.forEach(c => c(data))
-    }
-
 }
 
 function makePlayer(name) {

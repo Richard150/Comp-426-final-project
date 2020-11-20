@@ -27,19 +27,13 @@ class Room {
         this.game = new Game(this.userList);
         this.gameData.live = true;
 
-        this.game.onSubmitAction(this.actionSubmitted);
-        this.game.onNewTurn(this.newTurn);
-
-        console.log(this);
-
-        this.game.resolveTurn();
+        this.newTurn(this.game.resolveTurn());
 
         this.io.to(this.roomName).emit('room update', this.dataToClient);
 
     }
 
     newTurn(data) {
-        console.log(this);
         this.gameData.lockedIn = [];
         this.gameData.data = data;
 
@@ -56,18 +50,24 @@ class Room {
         }
 
         this.io.to(this.roomName).emit('room update', this.dataToClient);
+        console.log(this.dataToClient);
     }
 
     actionSubmitted(player) { // this covers when a user submits an action that /does not/ advance the game to the next turn
-        if (!player.includes("$")) { // 'player$rejected$' means the command wasn't accepted
-            this.gameData.lockedIn.push(player);
-            this.io.to(this.roomName).emit('room update', this.dataToClient);
-        }
+        this.gameData.lockedIn.push(player);
+        this.io.to(this.roomName).emit('room update', this.dataToClient);
     }
 
     submitAction(socket, action, target) {
         if (this.userList.includes(socket.userName)) {
-            this.game.submitAction(socket.userName, action, target);
+            let response = this.game.submitAction(socket.userName, action, target);
+            if (response === 'accepted') {
+                this.actionSubmitted(socket.userName);
+            } else if (response === 'rejected') {
+                // do nothin
+            } else {
+                this.newTurn(response);
+            }
         }
     }
 
