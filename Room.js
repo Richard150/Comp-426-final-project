@@ -46,7 +46,7 @@ class Room {
 
         if(!this.gameData.live) {
             if(livingPlayers.length == 0) {
-                this.gameData.winner = '$nobody'
+                this.gameData.winner = '$nobody';
             } else {
                 this.gameData.winner = Object.keys(data.players).find(p => data.players[p].health > 0);
             }

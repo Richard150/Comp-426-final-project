@@ -1,3 +1,5 @@
+const PORT = process.env.PORT || 5000;
+
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -7,7 +9,7 @@ const Room = require('./Room');
 let connectedUsers = []; // array storing all users currently online. indexed by socket id
 let usernames = [];      // array of usernames. indexed by socket id
 let usersOnline = 0;     // count of how many users are connected to the website
-let registry = []        // array of rooms where users are. indexed by socket id
+let registry = [];       // array of rooms where users are. indexed by socket id
 
 let rooms = [];          // array of rooms. indexed by room name
 
@@ -153,6 +155,6 @@ let leaveRoom = (socket) => {
     }
 }
 
-http.listen(3000, () => {
-    console.log('listening on *:3000');
+http.listen(PORT, () => {
+    console.log('listening on *:' + PORT);
 });
