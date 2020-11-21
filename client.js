@@ -28,6 +28,7 @@ $(function () {
 
     socket.on('online count', function(usersOnline) {
         $('#oc').html(usersOnline);
+        
     });
 
     socket.on('new name list', function(usernames) {
@@ -82,17 +83,11 @@ $(function () {
                 $status.append('☠');
             } else {
                 livingPlayers.push(p);
-                for (let i = 0; i < players[p].health; i++) {
-                    $status.append('♥');
-                }
-                if (players[p].shieldReady) {
-                    $status.append('🛡');
-                }
+                for (let i = 0; i < players[p].health; i++) $status.append('♥');
+                if (players[p].shieldReady) $status.append('🛡');
             }
 
-            if (lockedIn.includes(p)) {
-                $status.append(' <em>(choice made!)</em>')
-            }
+            if (lockedIn.includes(p)) $status.append(' <em>(choice made!)</em>');
         });
 
         if (winner != '' && livingPlayers.length == 1) {
