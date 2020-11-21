@@ -31,9 +31,6 @@ class Room {
         this.gameData.live = true;
 
         this.newTurn(this.game.resolveTurn());
-
-        this.io.to(this.roomName).emit('room update', this.dataToClient);
-
     }
 
     newTurn(data) {
@@ -83,6 +80,7 @@ class Room {
             this.userList.push(socket.userName);
             socket.join(this.roomName);
             socket.leave('lobby');
+            this.io.to(this.roomName).emit('room update', this.dataToClient);
         }
     }
 
@@ -103,6 +101,7 @@ class Room {
                 this.leader = this.userList[0];
                 this.dataToClient.leader = this.leader;
             }
+            this.io.to(this.roomName).emit('room update', this.dataToClient);
         }
     }
 
@@ -113,6 +112,7 @@ class Room {
             if (this.chatlog.length > 25) {
                 this.chatlog.shift();
             }
+            this.io.to(this.roomName).emit('room update', this.dataToClient);
         }
     }
 }

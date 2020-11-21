@@ -94,7 +94,6 @@ io.on('connection', (socket) => {
         if (rooms[roomName] != undefined && socket.loggedIn) {
             rooms[roomName].userJoin(socket);
             registry[socket.id] = roomName;
-            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
         }
     });
 
@@ -108,7 +107,6 @@ io.on('connection', (socket) => {
         // if the room exists, the person emitting this event is the room leader, and the room doesn't have a game going...
         if(rooms[roomName] != undefined && socket.userName == rooms[roomName].leader && !rooms[roomName].gameData.live) {
             rooms[roomName].createGame();
-            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
         }
     });
 
@@ -117,7 +115,6 @@ io.on('connection', (socket) => {
         let roomName = registry[socket.id];
         if (rooms[roomName] != undefined) {
             rooms[roomName].message(socket, message);
-            io.in(roomName).emit('room update', rooms[roomName].dataToClient);
         }
     });
 
@@ -147,7 +144,6 @@ let leaveRoom = (socket) => {
     let room = rooms[roomName];
     if (roomName != 'lobby' && roomName != undefined && room != undefined) {
         room.userLeave(socket);
-        io.in(roomName).emit('room update', room.dataToClient);
         if (room.userList.length == 0) {
             delete rooms[roomName];
             io.emit('roomlist update', Object.keys(rooms));
