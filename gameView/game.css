@@ -1,0 +1,113 @@
+body{
+    background:#e7e6e6;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5em;
+}
+
+.boxesDiv{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.box{
+    height: 30px;
+    width: 30px;
+    background-color: maroon;
+}
+
+.healths{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    justify-self: left;
+}
+
+.container > div {
+    background:  #dad8d8;
+}
+
+.container > div:nth-child(odd){
+    background:#F7F7F7;
+}
+
+.names{
+    font-size: 150%;
+    padding: 0.5rem 2rem 0.5rem;
+}
+
+.gridItem{
+    border: 2px solid whitesmoke;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
+}
+
+.healthBox{
+    justify-self: center;
+    padding: 0.5rem;
+    font-size: 100%;
+    width: 90%;
+}
+
+#myDiv{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 0.5em;
+    /* height: 400%; */
+}
+
+#myView{
+    border: 2px solid whitesmoke;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
+    background:  #F7F7F7;
+}
+
+#myStuff{
+    display: grid;
+    grid-template-rows: 3fr 2fr;
+    padding: 0.5rem;
+}
+
+#chatDiv{
+    border: 2px solid whitesmoke;
+    background:  #dad8d8;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
+}
+
+#moves{
+    justify-self: center;
+}
+
+#root{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5em;
+    padding: 0.5rem;
+}
+
+
+
+
+button {
+    height: 60%;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: black;
+    border-radius: 0.5rem;
+    display: block;
+    width: 20%;
+    background: transparent;
+    border: 2px solid black;
+    padding: 0.5rem 0 0.5rem;
+}
+
+button:hover, button:focus {
+    color: maroon;
+    border-color: maroon;
+}

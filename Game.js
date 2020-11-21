@@ -1,5 +1,3 @@
-let nonAttackActions = ['attack', 'block', 'counter', 'heal', 'repair'];
-
 class Game {
     constructor(userList) {
         this.playerList = [];
@@ -15,11 +13,13 @@ class Game {
         let playerTarget = this.playerList.find(p => p.userName == target && p.health > 0);
         let playerExists = player != undefined;
         let playerTargetExists = target != undefined && playerTarget != undefined;
+
         if (playerExists && (action == 'attack' && playerTargetExists || // can only attack if your target exists & is alive
                              action == 'block' && player.shieldReady || // can only block if your shield is up
                              action == 'repair' && !player.shieldReady || // can only repair if your shield is down
                              action == 'heal' && player.health < 4 || // can only heal if you're not at max health
-                             action == 'counter')) { // can only counter if you're brave enough
+                             action == 'counter' || // can only counter if you're brave enough
+                             action == 'die')) { // called when a user leaves a room with an active game
             player.action = action;
             player.target = playerTarget;
 
@@ -28,14 +28,26 @@ class Game {
             }
 
             if (this.playerList.findIndex(p => p.action == 'undecided' && p.health > 0) == -1) {
-                
-                this.resolveTurn();
-                
+                let data = this.resolveTurn();
+                return data;
+            } else {
+                return 'accepted'
             }
         } else {
-            console.log('command rejected');
+            return 'rejected'
         }
     }
+
+    // kill(playerName) {
+    //     let idx = this.playerList.indexOf(p => p.userName == playerName && p.health > 0);
+    //     if (idx != -1) {
+    //         this.playerList[idx].health = 0;
+            
+    //         if (this.playerList.findIndex(p => p.action == 'undecided' && p.health > 0) == -1) {
+    //             this.resolveTurn();
+    //         }
+    //     }
+    // }
 
     resolveTurn() {
         this.actionList = [];
@@ -89,24 +101,52 @@ class Game {
                     } // for block, counter, and heal, we dont need to have an else statement since we handle that case when looking at the attacker
                     break;
 
+                case 'die':
+                    player.health = 0;
+                    this.updateTurnSummary('died', player); // player died suddenly
+                    break;
+
                 default:
                     this.updateTurnSummary('idled', player); // player didn't do anything
             }
         });
 
+        let data = {};
+        data.summary = this.actionList;
+        data.players = {};
+
         this.playerList.forEach(p => {
+            let action = '';
+            if (p.action == 'attack') {
+                action = p.target;
+            } else {
+                action = p.action;
+            }
+
+            let availableActions = ['attack', 'counter'];
+            availableActions.push(p.shieldReady ? 'block' : 'repair');
+            if (p.health < 4) {
+                availableActions.push('heal');
+            }
+
+            data.players[p.userName] = {
+                action: p.action == 'attack' ? p.target.userName : p.action,
+                health: p.health,
+                shieldReady: p.shieldReady,
+                availableActions: availableActions
+            };
+
             p.action = 'undecided';
             p.target = '$none';
             p.attackers = [];
+            
         });
-
         
-        this.printActionList();
-        this.printPlayers();
+        return data;
     }
 
     updateTurnSummary(connection, p1, p2) {
-        let player1 = p1.userName;
+        let player1 = p1 != undefined ? p1.userName : '';
         let player2 = p2 != undefined ? p2.userName : '';
         switch(connection) {
 
@@ -142,30 +182,15 @@ class Game {
                 this.actionList.push(`${player1} healed`)
                 break;
 
+            case 'died':
+                this.actionList.push(`${player1} died suddenly`);
+                break;
+
             case 'idled': 
                 if(p1.health > 0) this.actionList.push(`${player1} twiddled their thumbs`);
                 break;
-        }
-
-        
+        }        
     }
-    
-    printPlayers() {
-        this.playerList.forEach(p => {
-            console.log(`(${p.health}) ${p.userName} ${p.shieldReady ? '' : '*shield down!* '}`);
-            // `action: ${p.action}, target: ${p.target != undefined ? p.target.userName : ''}, attackers: [${this.attackersToString(p)}]`
-        });
-    }
-
-    printActionList() {
-        let str = this.actionList.reduce((acc, curr) => acc + curr + '\n', '').slice(0, -1);
-        console.log(str);
-    }
-
-    attackersToString(player) {
-        return player.attackers.reduce((acc, curr) => acc + ', ' + curr.userName, '').slice(2);
-    }
-
 }
 
 function makePlayer(name) {
@@ -175,8 +200,7 @@ function makePlayer(name) {
         shieldReady: true,
         action: 'undecided',
         target: '$none',
-        attackers: [],
-        inSummary: false
+        attackers: []
     }
 }
 
