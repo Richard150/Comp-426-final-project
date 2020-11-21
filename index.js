@@ -127,11 +127,13 @@ io.on('connection', (socket) => {
 
 });
 
+let forbiddenNames = ['attack', 'block', 'heal', 'counter', 'repair', 'die', ''];
+
 // HOW TO SET A USER'S USERNAME //////////////////////////////
 let chooseName = (socket, name) => {                        
     name = name.replace(/\W/g,'').substring(0,20);          // remove nonalphanumeric characters from the name
 
-    if(!Object.values(usernames).includes(name) && !socket.loggedIn) {          // check to see if the username is currently in use
+    if(!Object.values(usernames).includes(name) && !socket.loggedIn && !forbiddenNames.includes(name)) {          // check to see if the username is currently in use
         usernames[socket.id] = name;                        // put the new name in the username list
         socket.userName = name;                             // give the socket a 'userName' property
         io.emit('new name list', Object.values(usernames)); // let everybody know the updated name list
