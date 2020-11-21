@@ -21,3 +21,8 @@
       grid-template-columns: 2fr 3fr 1fr;
       grid-gap: 20px;
 }
+
+.gameview {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr
+}

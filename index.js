@@ -142,11 +142,12 @@ let chooseName = (socket, name) => {
 
 let leaveRoom = (socket) => {
     let roomName = registry[socket.id];
-    if (roomName != 'lobby' && roomName != undefined) {
-        rooms[roomName].userLeave(socket);
-        io.in(roomName).emit('room update', rooms[roomName].dataToClient);
-        if (rooms[roomName].userList.length == 0) {
-            delete rooms[roomName];
+    let room = rooms[roomName];
+    if (roomName != 'lobby' && roomName != undefined && room != undefined) {
+        room.userLeave(socket);
+        io.in(roomName).emit('room update', room.dataToClient);
+        if (room.userList.length == 0) {
+            delete room[roomName];
             io.emit('roomlist update', Object.keys(rooms));
         }
     }

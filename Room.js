@@ -9,7 +9,10 @@ class Room {
         this.gameData = {
             live: false,
             lockedIn: [],
-            data: {},
+            data: {
+                players: {},
+                summary: []
+            },
             winner: ''
         };
 
@@ -50,10 +53,6 @@ class Room {
         }
 
         this.io.to(this.roomName).emit('room update', this.dataToClient);
-        console.log(this.dataToClient.game.data.players);
-        console.log(this.dataToClient.game.data.summary);
-
-        this.io.to(this.roomName).emit('playerlist', this.dataToClient.game.data.summary);
     }
 
     actionSubmitted(player) { // this covers when a user submits an action that /does not/ advance the game to the next turn
@@ -61,8 +60,13 @@ class Room {
         this.io.to(this.roomName).emit('room update', this.dataToClient);
     }
 
-    submitAction(socket, action, target) {
-        if (this.userList.includes(socket.userName)) {
+    submitAction(socket, action) {
+        let target = undefined;
+        if (this.userList.includes(socket.userName)) { 
+            if (action != 'block' && action != 'counter' && action != 'repair' && action != 'heal' && action != 'die') {
+                target = action;
+                action = 'attack';
+            }
             let response = this.game.submitAction(socket.userName, action, target);
             if (response === 'accepted') {
                 this.actionSubmitted(socket.userName);
@@ -85,13 +89,15 @@ class Room {
     userLeave(socket) {
         let index = this.userList.indexOf(socket.userName);
         if (index > -1) {
+            if(this.gameData.live) {
+                this.submitAction(socket, 'die');
+            }
+
             this.userList.splice(index, 1);
             socket.leave(this.roomName);
             socket.join('lobby');
 
-            if (this.gameActive) {
-                this.game.kill(socket.userName);
-            }
+            
 
             if (socket.userName == this.leader) {
                 this.leader = this.userList[0];
@@ -102,7 +108,7 @@ class Room {
 
     message(socket, message) {
         if (this.userList.includes(socket.userName)) {
-            message = message.replace(/[^a-zA-Z0-9 .,!?#$%^&*()+=_'";:/~-]/g, '');
+            message = message.replace(/[^a-zA-Z0-9 .,!@?#$%^&*()+=_'";:/~-]/g, '');
             this.chatlog.push(`${socket.userName}: ${message}`);
             if (this.chatlog.length > 25) {
                 this.chatlog.shift();

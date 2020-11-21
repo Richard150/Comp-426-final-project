@@ -40,10 +40,6 @@ $(function () {
         $('.availablerooms').html(roomList);
     });
 
-    socket.on('playerlist', function(list) {
-        console.log(list);
-    });
-
     socket.on('room update', function(roomdata) {
         let chatlog = roomdata.chatlog;             // array of messages to display in chat (indexed 0, 1, ...)
         let usernames = roomdata.usernames;         // array of usernames in the room (indexed 0, 1, ...)
@@ -55,6 +51,7 @@ $(function () {
         let turnSummary = gameData.data.summary;    // array of strings describing what happened the previous turn (indexed 0, 1, ...) (ex: 'alice blocked bob's attack')
         let players = gameData.data.players;        // object containing player information, indexed by player name
 
+        console.log('room update:');
         console.log(roomdata);
 
         /**
@@ -71,45 +68,76 @@ $(function () {
         $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
 
         // render game
-        let $gameview = $('.gameview');
-        $gameview.html(''); // clear whats there
+        let summary = turnSummary.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>turn summary:</strong>');
+        $('.turnsummary').html(summary);
 
-        if (gameLive || winner != '') { // we would like to render the game if a game is going on OR if a game happened & a winner was declared
-            $gameview.append('<strong>turn summary:</strong>')
-            turnSummary.forEach(str => {
-                $gameview.append('<br>' + str);
-            });
-            $gameview.append('<br><strong>player status:</strong>');
+        let livingPlayers = [];
+        let $status = $('.playerstatus');
+        $status.html('');
+        $status.append('<strong>player status:</strong>');
+        Object.keys(players).forEach(p => {
+            $status.append(`<br>${p} `);
 
-            console.log(players);
-
-            Object.keys(players).forEach(p => {
-                let str = p + ' ';
-                let player = players[p]
-                if (player.health < 1) {
-                    str += '☠';
-                } else {
-                    for (let i = 0; i < player.health; i++) {
-                        str += '♥';
-                    }
-                    if (player.shieldReady) {
-                        str += '🛡';
-                    }
+            if (players[p].health < 1) {
+                $status.append('☠');
+            } else {
+                livingPlayers.push(p);
+                for (let i = 0; i < players[p].health; i++) {
+                    $status.append('♥');
                 }
-                $gameview.append('<br>' + str);
-            });
-
-        } else { // this room has never had a game start before
-            $gameview.append('No game to display');
-
-            if(myName == leader) {
-                $gameview.append(`<button id='startgame'>start game</button>`);
-                $('#startgame').click(function() {
-                    socket.emit('start game');
-                });
+                if (players[p].shieldReady) {
+                    $status.append('🛡');
+                }
             }
+
+            if (lockedIn.includes(p)) {
+                $status.append(' <em>(choice made!)</em>')
+            }
+        });
+
+        if (winner != '' && livingPlayers.length == 1) {
+            $status.append(`<br>${livingPlayers[0]} won!`);
+        } else if (winner != '' && livingPlayers.length == 0) {
+            $status.append(`<br>Nobody won, it's a tie!`);
         }
 
+        let $actionmenu = $('.actionmenu');
+        $actionmenu.html('');
+        $actionmenu.append('<strong>select an action:</strong>');
+        if (gameLive && livingPlayers.includes(myName)) {
+            if (lockedIn.includes(myName)) {
+                $actionmenu.append('<br>waiting for others...');
+            } else {
+                players[myName].availableActions.forEach(action => {
+                    if (action != 'attack') {
+                        $actionmenu.append(`<br><button class='choicebutton' id='b-${action}'>${action}</button>`);
+                        $(`#b-${action}`).on('click', function() {
+                            socket.emit('send action', action);
+                        });
+                    }
+                });
+
+                livingPlayers.forEach(target => {
+                    if (target != myName) {
+                        $actionmenu.append(`<br><button class='choicebutton' id='b-${target}'>attack ${target}</button>`);
+                        $(`#b-${target}`).on('click', function() {
+                            socket.emit('send action', target);
+                        });
+                    }
+                });
+            }
+        } else {
+            if (!gameLive && myName != leader) {
+                $actionmenu.append('<br>Waiting for host to start the game...');
+            } else if (!gameLive && myName == leader) {
+                $actionmenu.append(`<br><button id='startgame'>start game</button>`);
+                $('#startgame').on('click', function() {
+                    socket.emit('start game');
+                });
+            } else {
+                $actionmenu.append('<br>Waiting for next game...');
+            }
+        }
 
     });
 
