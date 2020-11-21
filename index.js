@@ -147,7 +147,7 @@ let leaveRoom = (socket) => {
         room.userLeave(socket);
         io.in(roomName).emit('room update', room.dataToClient);
         if (room.userList.length == 0) {
-            delete room[roomName];
+            delete rooms[roomName];
             io.emit('roomlist update', Object.keys(rooms));
         }
     }
