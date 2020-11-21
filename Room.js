@@ -30,10 +30,16 @@ class Room {
         this.game = new Game(this.userList);
         this.gameData.live = true;
 
+        this.forceNewTurn();
+    }
+
+    forceNewTurn() {
         this.newTurn(this.game.resolveTurn());
     }
 
     newTurn(data) {
+        clearTimeout(this.turnTimer);
+
         this.gameData.lockedIn = [];
         this.gameData.data = data;
 
@@ -47,6 +53,8 @@ class Room {
             } else {
                 this.gameData.winner = Object.keys(data.players).find(p => data.players[p].health > 0);
             }
+        } else {
+            this.turnTimer = setTimeout(() => {this.newTurn(this.game.resolveTurn())}, 10000);
         }
 
         this.io.to(this.roomName).emit('room update', this.dataToClient);
