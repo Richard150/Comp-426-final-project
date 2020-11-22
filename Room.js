@@ -32,7 +32,7 @@ class Room {
         this.game = new Game(this.userList);
         this.gameData.live = true;
 
-        this.forceNewTurn();
+        this.newTurn(this.game.resolveTurn());
     }
 
     newTurn(data) {
