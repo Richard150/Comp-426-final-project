@@ -54,6 +54,8 @@ $(function () {
         let winner = gameData.winner;               // name of last game's winner. empty string if no winner yet, "$nobody" if everybody died
         let turnSummary = gameData.data.summary;    // array of strings describing what happened the previous turn (indexed 0, 1, ...) (ex: 'alice blocked bob's attack')
         let players = gameData.data.players;        // object containing player information, indexed by player name
+        let event = roomdata.event;                 // string describing what happened in the room:
+                                                    // 'new turn', 'new message', 'user joined', 'user left', 'created room', and 'action submitted'
 
         console.log('room update:');
         console.log(roomdata);
