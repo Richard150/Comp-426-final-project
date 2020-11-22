@@ -1,4 +1,4 @@
-//commeting to see if things will work
+
 $(function () {
     let socket = io();
     let myName = '';
@@ -10,13 +10,16 @@ $(function () {
         myName = $('#namefield').val();
         $('form.nameform').remove();
         $('.lobby').removeClass('hidden');
+        $('.info').html(`<div></div>`);
     });
 
     $('form.createroomform').submit(function(e){
         let roomname = $('#roomnamefield').val();
         e.preventDefault();
+        $('#container').addClass('hidden');
         socket.emit('create room', roomname);
         joinRoom(roomname);
+        
     });
 
     $('form.chatform').submit(function(e) {
@@ -32,12 +35,12 @@ $(function () {
     });
 
     socket.on('new name list', function(usernames) {
-        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2>users online:</h2>');
+        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2>Users Online:</h2>');
         $('.everybodyonline').html(userList)
     });
 
     socket.on('roomlist update', function(rooms) {
-        let roomList = rooms.reduce((acc, curr) => acc += `<br><button class="roombutton" id="room-${curr}">Join ${curr}</button>`, '<h2>available rooms to join:</h2>');
+        let roomList = rooms.reduce((acc, curr) => acc += `<br><button class="roombutton" id="room-${curr}">Join ${curr}</button>`, '<h2>Join a room or create your own!</h2>');
         $('.availablerooms').html(roomList);
     });
 
@@ -64,18 +67,18 @@ $(function () {
          */
 
         // render chat & userlist
-        let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${curr} (Host)` : `<br>${curr}`, '<strong>users online:</strong>');
+        let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${curr} (Host)` : `<br>${curr}`, '<strong>Users Online:</strong>');
         $('.usersinroom').html(userList);
-        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>chat history:</strong>'));
+        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong class="hidden">Chat</strong>'));
 
         // render game
-        let summary = turnSummary.reduce((acc, curr) => acc += `<br>${curr}`, '<strong>turn summary:</strong>');
+        let summary = turnSummary.reduce((acc, curr) => acc += `<br>${curr}`, '<strong class="statutTitle hidden">Turn Summary:</strong>');
         $('.turnsummary').html(summary);
 
         let livingPlayers = [];
         let $status = $('.playerstatus');
         $status.html('');
-        $status.append('<strong>player status:</strong>');
+        $status.append('<strong class="statutTitle hidden">Player Status:</strong>');
         Object.keys(players).forEach(p => {
             $status.append(`<br>${p} `);
 
@@ -98,7 +101,7 @@ $(function () {
 
         let $actionmenu = $('.actionmenu');
         $actionmenu.html('');
-        $actionmenu.append('<strong>select an action:</strong>');
+        $actionmenu.append('<strong class="actionTitle">Select an action:</strong>');
         if (gameLive && livingPlayers.includes(myName)) {
             if (lockedIn.includes(myName)) {
                 $actionmenu.append('<br>waiting for others...');
@@ -125,7 +128,7 @@ $(function () {
             if (!gameLive && myName != leader) {
                 $actionmenu.append('<br>Waiting for host to start the game...');
             } else if (!gameLive && myName == leader) {
-                $actionmenu.append(`<br><button id='startgame'>start game</button>`);
+                $actionmenu.append(`<br><button id='startgame'>Start Game</button>`);
                 $('#startgame').on('click', function() {
                     socket.emit('start game');
                 });
@@ -145,8 +148,9 @@ $(function () {
     $('#leaveroombutton').click(function(){
         socket.emit('leave room');
         currentRoom = 'lobby';
+        $('#container').removeClass('hidden');
         $('.lobby').removeClass('hidden');
-        $('.roomchat').addClass('hidden');
+        $('#gameScreen').addClass('hidden');
     })
 
     function joinRoom(roomname) {
