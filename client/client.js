@@ -103,7 +103,7 @@ $(function () {
                 if (players[p].shieldReady) $status.append('🛡');
             }
 
-            if (lockedIn.includes(p)) $status.append(' <em>(choice made!)</em>');
+            if (lockedIn.includes(p)) $status.append(' (choice made!)');
         });
 
         if (winner != '' && livingPlayers.length == 1) {
