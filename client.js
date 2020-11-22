@@ -44,6 +44,15 @@ $(function () {
         $('.availablerooms').html(roomList);
     });
 
+    let $timerDisplay = $(`<div></div>`);
+    let timeLeft = 15;
+    setInterval(function() {
+        if (timeLeft > 0) timeLeft -= 0.1;
+        let str = '' + (Math.round(timeLeft * 10) / 10) + '.0';
+        str = str.substring(0,3);
+        $timerDisplay.text(str + ' seconds remaining!');
+    },100)
+
     socket.on('room update', function(roomdata) {
         let chatlog = roomdata.chatlog;             // array of messages to display in chat (indexed 0, 1, ...)
         let usernames = roomdata.usernames;         // array of usernames in the room (indexed 0, 1, ...)
@@ -59,6 +68,8 @@ $(function () {
 
         console.log('room update:');
         console.log(roomdata);
+
+        if (event == 'new turn') timeLeft = 10;
 
         /**
          * players['bob'].health = bob's health (0, 1, 2, 3, 4)
@@ -125,6 +136,7 @@ $(function () {
                         });
                     }
                 });
+                $actionmenu.append($timerDisplay);
             }
         } else {
             if (!gameLive && myName != leader) {
@@ -153,6 +165,7 @@ $(function () {
         $('#container').removeClass('hidden');
         $('.lobby').removeClass('hidden');
         $('#gameScreen').addClass('hidden');
+        $('.everybodyonline').removeClass('hidden');
     })
 
     function joinRoom(roomname) {
@@ -160,5 +173,6 @@ $(function () {
         socket.emit('join room', roomname);
         $('.lobby').addClass('hidden');
         $('.roomchat').removeClass('hidden');
+        $('.everybodyonline').addClass('hidden');
     };
 });
