@@ -1,0 +1,14 @@
+{
+  "0": {
+    "id": 0,
+    "owner": "kmp",
+    "wins": 0,
+    "losses": 0
+  },
+  "1": {
+    "id": 1,
+    "owner": "rich",
+    "wins": 0,
+    "losses": 0
+  }
+}

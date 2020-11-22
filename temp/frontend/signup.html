@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Login to Colosseum</title>
+
+        <!-- Include links to CSS stylesheets below -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" />
+        <link rel="stylesheet" href="signup.css"/>
+    </head>
+
+    <body>
+        <container>
+            <div id="signup">
+                <div class="signup-card">
+                    <div class="card-title">
+                        <h3>Sign up for Colosseum</h3>
+                    </div>
+
+                    <div class="content">
+                        <form id="signup-form">
+                            <input id="username" type="username" name="username" title="username" placeholder="Username" required autofocus>
+                            <input id="password" type="password" name="password" title="password" placeholder="Password" required>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="btn btn-primary">Signup</button>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <p id="signupMessage"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </container>
+
+        <!-- Include links to JavaScript files below -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="./node_modules/axios/dist/axios.js"></script>
+        <script src="./signup.js"></script>
+    </body>
+</html>
