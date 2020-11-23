@@ -97,7 +97,9 @@
             image-rendering: crisp-edges;
       }
           
-      
+      #notFound{
+            padding: 1rem 1rem 1rem;
+      }
       /* #viewRules{
             height: 10vh;
             width: 30vw;
