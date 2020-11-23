@@ -6,6 +6,7 @@
     </head>
     <body>
         <div id="welcomeDiv" class="filler">
+            <span id="failedLogin" class="hidden">Login unsuccessful. Your credentials are incorrect, or you are already signed in</span>
             <form class="nameform" action="">
                 <div id="welcomeInputDiv">
                     <input id="userNameInput" class="welcomeInput" placeholder="username" autocomplete="off" maxlength="20"/>
@@ -17,11 +18,12 @@
         </div>
 
         <div id="newUserDiv" class="filler hidden">
+            <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
             <form class="nameform" action="">
                 <div id="newUserInputDiv">
                     <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
                     <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20"/>
-                    <button id="signupButton" class="newUserInput">Sign Up</button>
+                    <button id="makeAccount" class="newUserInput">Sign Up</button>
                     <button id="signupBackButton">Back</button>
                 </div>
             </form>

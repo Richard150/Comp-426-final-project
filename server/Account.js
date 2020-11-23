@@ -214,5 +214,6 @@ Account.create = (username, password, avatar) => {
     return a;
 }
 
+console.log(Account.setAvatar('richyj', 33));
 
 module.exports = Account;

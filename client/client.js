@@ -4,13 +4,8 @@ $(function () {
     let myName = '';
     let currentRoom = 'lobby';
 
-    $('form.nameform').submit(function(e){
+    $('form').submit(function(e) {
         e.preventDefault();
-        socket.emit('choose name', $('#namefield').val());
-        myName = $('#namefield').val();
-        $('form.nameform').remove();
-        $('.lobby').removeClass('hidden');
-        $('.info').html(`<div></div>`);
     });
 
     $('form.createroomform').submit(function(e){
@@ -194,13 +189,14 @@ $(function () {
         socket.emit('login', credentials);
     });
 
-    socket.on('login successful', ()=>{
+    socket.on('login successful', () => {
         $('#lobbyDiv').removeClass('hidden');
         $('#welcomeInputDiv').addClass('hidden');
     });
 
-    socket.on('login unsuccessful', () =>{
-        $('#welcomeDiv').append(`<span>Login unsucessful. Reload page to try again</span>`);
+    socket.on('login unsuccessful', () => {
+        $('#loginFailed').removeClass('hidden');
+        alert('fail')
     });
 
     $('#newAccount').on('click', (e) => {
@@ -218,13 +214,13 @@ $(function () {
         socket.emit('signup', credentials);
     });
     
-    socket.on('signup unsuccessful', ()=>{
+    socket.on('signup successful', () => {
         $('#lobbyDiv').removeClass('hidden');
         $('#newUserDiv').addClass('hidden');
     });
     
     socket.on('signup unsuccessful', ()=>{
-        $('#newUserDiv').prepend(`<span>Signup unsucessful. Please try again</span>`);
+        $('#signupFailed').removeClass('hidden');
     });
 
 });
