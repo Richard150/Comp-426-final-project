@@ -178,7 +178,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('delete profile', () => {
-        
+        if (socket.loggedIn) {
+            Account.delete(socket.userName);
+
+            delete usernames[socket.id];
+            delete registry[socket.id];
+
+            io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
+        }
     });
 });
 
