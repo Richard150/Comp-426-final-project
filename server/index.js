@@ -117,7 +117,7 @@ io.on('connection', (socket) => {
             let username = credentials.username;
             let password = credentials.password;
 
-            if (Account.userExists(username) && Account.getPassword(username).substring(0,3) == password) {
+            if (Account.userExists(username) && Account.getPassword(username) == password.substring(0,3)) {
                 socket.emit('login successful');
                 socket.loggedIn = true;
                 socket.userName = username;

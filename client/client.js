@@ -199,7 +199,7 @@ $(function () {
 
     socket.on('login successful', () => {
         $('#lobbyDiv').removeClass('hidden');
-        $('#welcomeInputDiv').addClass('hidden');
+        $('#welcomeDiv').addClass('hidden');
     });
 
     socket.on('login unsuccessful', () => {
