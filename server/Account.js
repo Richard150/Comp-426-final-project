@@ -29,6 +29,15 @@ class Account {
 
 }
 
+Account.delete = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return false;
+    }
+    account_data.del(username);
+    return true;
+}
+
 Account.userExists = (username) => {
     let adata = account_data.get(username);
     if (adata == undefined) {
