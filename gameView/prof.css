@@ -1,0 +1,109 @@
+html {
+    background-color: rgb(201, 201, 212);
+}
+
+body{
+    background-color:rgb(182, 187, 187);
+    margin: 0 auto;
+    width: auto;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+    font-size: 22px;
+}
+header{
+    height: 178px;
+    padding: 20px;
+
+}
+header .left{
+    background-color:rgb(182, 187, 187);
+
+}
+header .right{
+    background-color:rgb(182, 187, 187);
+    font-size: 22px;
+}
+
+ul{
+    padding: 0;
+
+}
+li{
+    display: inline;
+    padding: 10px;
+    font-size: 20px;
+
+}
+header li:first-child{
+    border-right: 1px solid #373535;
+
+}
+.left{
+    width: 320px;
+    float: left;
+
+}
+.left ul{
+    padding-top: 20px;
+}
+.right{
+    width: 320x;
+    float: right;
+    padding-top: 20px;
+}
+.right p{
+    padding-right: 20px;
+}
+.user{
+    width: 320px;
+    float: left;
+    padding-left: 220px;
+}
+header img{
+    max-width: 60%;
+    height: auto;
+
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 150;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    
+    background-color:rgb(11, 109, 88);
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: rgb(116, 7, 21)
+    
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }

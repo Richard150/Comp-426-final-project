@@ -1,0 +1,103 @@
+article > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1.5%;
+    width: 802px;
+    height: 960px;
+
+}
+
+.flex-container {
+    display: flex;
+  }
+
+
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Ariel';
+    color: #14031E;
+}
+
+#t1 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    width: 500px;
+    height: 550px;
+
+}
+
+#Pic1{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    width: 415px;
+    height: 332px;
+
+}
+
+#Pic{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1%;
+    padding-bottom: 1.5%;
+    width: 850px;
+    height: 495px;
+
+
+}
+
+#Title{
+    text-decoration: underline;
+    font-family: 'Smythe', cursive;
+    font-size: 50px;
+}
+
+#pageLinks:hover{
+    border-style: outset;
+    border-color: black;
+}
+
+
+h2 {
+    text-align: center;
+    font-family: 'Gayathri', sans-serif;
+}
+
+.link {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:  18px;
+}
+.link_2 {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:  18px;
+}
+
+
+body {
+    background-color: #750811;
+}
+body_win { 
+    background-color: green;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.source{
+    font-size: 12px;
+}
