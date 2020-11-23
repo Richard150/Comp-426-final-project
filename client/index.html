@@ -5,29 +5,34 @@
         <link rel="stylesheet" href="/style.css" type="text/css"> 
     </head>
     <body>
-        <div id="welcomeDiv" class="filler">
-            <span id="failedLogin" class="hidden">Login unsuccessful. Your credentials are incorrect, or you are already signed in</span>
-            <form class="nameform" action="">
-                <div id="welcomeInputDiv">
-                    <input id="userNameInput" class="welcomeInput" placeholder="username" autocomplete="off" maxlength="20"/>
-                    <input id="passwordInput" class="welcomeInput" placeholder="password" autocomplete="off" maxlength="20"/>
-                    <button id="loginButton" class="welcomeInput">Login</button>
-                    <button id="newAccount" class="welcomeInput">Create New Account</button>
-                </div>
-            </form>
+      <div id="welcomeDiv" class="filler">
+        <div id="welcomeHeading">
+            <h1 id="welcomeWords" class="centerIt">WELCOME TO COLOSSEUM</h1>
+            <P class="centerIt">sign in or create a new account to play</P>
         </div>
+        <form class="nameform" action="">
+            <div id="welcomeInputDiv">
+                <input id="userNameInput" class="welcomeInput actualInput" placeholder="username" autocomplete="off" maxlength="20"/>
+                <input id="passwordInput" class="welcomeInput actualInput" placeholder="password" autocomplete="off" maxlength="20"/>
+                <button id="loginButton" class="welcomeInput">Login</button>
+                <button id="newAccount" class="welcomeInput">Create New Account</button>
+            </div>
+        </form>
+        <span id="failedLogin" class="hidden centerIt">Login unsuccessful. Your credentials are incorrect, or you are already signed in</span>
+    </div>
 
-        <div id="newUserDiv" class="filler hidden">
-            <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
-            <form class="nameform" action="">
-                <div id="newUserInputDiv">
-                    <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
-                    <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20"/>
-                    <button id="makeAccount" class="newUserInput">Sign Up</button>
-                    <button id="signupBackButton">Back</button>
-                </div>
-            </form>
-        </div>
+    <div id="newUserDiv" class="filler hidden">
+      <h1>Create a new colosseum account</h1>
+      <form class="nameform" action="">
+          <div id="newUserInputDiv">
+              <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
+              <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20"/>
+              <button id="makeAccount" class="newUserInput">Sign Up</button>
+              <button id="signupBackButton">Back</button>
+          </div>
+      </form>
+      <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
+  </div>
 
         <div id="lobbyDiv" class="hidden">
             <div id="lobbyLeftSide" class="gridItem">

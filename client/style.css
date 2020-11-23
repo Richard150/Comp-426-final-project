@@ -8,290 +8,303 @@
       #messages li:nth-child(odd) { background: #eee; } */
 
 
-.hidden {
-      display: none;
-      visibility: hidden;
-      height: 0px !important;
-}
-
-#lobbyLeftSide{
-      display: grid;
-      grid-template-rows: 1fr 6fr;
-      padding: 1rem 1rem 1rem;
-      height: 90vh;
-}
-
-.roomchat {
-      display: grid;
-      grid-template-columns: 2fr 3fr 1fr;
-      border: 1px solid gray;
-      height: 200%;
-      gap: 2px;
-      background: rgb(231, 230, 230);
-      box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.11);
-}
-
-.gameview {
-      height: 90vh;
-      display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
-      gap: 2px;
-}
-
-/* .availablerooms{ß
-     
-}
-
-.lobbyWidgeHidden{
-     
-} */
-
-#fullChat{
-     
-      display: grid;
-      grid-template-rows: 1fr 9fr 1fr;
-      border: 1px solid gray;
-      background: #f7f5f5;
-      padding: 1rem 1rem 1rem;
-      gap: 6px;
-}
-
-#stateBox{
-      height: 90vh;
-     display: flex;
-     flex-direction: column;
-     flex-grow: inherit;
-     background: rgb(231, 230, 230);
-      align-items: stretch;
-      justify-items: stretch;
-      gap: 4px;
-}
-
-#viewProfile{
-      height: 10vh;
-      width: 30vw;
-      font-size: 100%
-}
-
-img {
-      image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
-}
-    
-
-#viewRules{
-      height: 10vh;
-      width: 30vw;
-      font-size: 100%
-}
-
-#userBox{
-      border: 1px solid gray;
-      padding: 1rem 1rem 1rem;
-}
-
-.chatbox{
-      border: 1px solid black;
-      background: white;
-      padding: 1rem 1rem 1rem;
-      height: 62vh;
-      overflow-y:auto;
-}
-
-.stateItem{
-      height: 30vh;
-      border: 1px solid gray;
-      padding: 1rem 1rem 1rem;
-      background: #f7f5f5;
-}
-
-
-.stateSub{
-      height: 20vh;
-      overflow-y:auto;
-}
-
-.stateSubPlayers{
-      height: 20vh;
-      display: grid;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
-}
-
-.statutTitle{
-    font-size: 50%;  
-}
-
-
-.chatform{
-      display: grid;
-      grid-template-columns: 7fr 1fr;
-      gap: 1rem;
-}
-
-#typeMessage{
-      display: flex;
-      align-content: stretch;
-      justify-content: stretch;
-}
-
-#gameScreen{
-      display:grid;
-      grid-template-columns: 2fr 3fr 1fr;
-      gap: 4px;
-      padding: 4px 4px 4px;
-}
-
-#usersInRoomBox{
+      .hidden {
+            display: none;
+            visibility: hidden;
+            height: 0px !important;
+      }
       
-      border: 1px solid gray;
-      padding: 1rem 1rem 1rem;
-      background: #f7f5f5;
-      display: grid;
-      grid-template-rows: 9fr 1fr;
-      gap: 2rem;
-}
-
-#leaveroombutton{
-      justify-self: bottom;
-      height: 5vh;
-      width: 15vw;
-}
-
-#chatTitle{
-      font-size: 150%;
-}
-
-#welcomeInputDiv{
-      display: grid;
-      grid-template-rows: 1fr 1fr 1fr 1fr;
-      gap: 1rem;
-}
-
-.welcomeInput{
-      width: 30vw;
-}
-
-
-body{
-      background: white;
-      font-family: "Courier New", Courier, monospace;
-      font-size: 17px;
-      letter-spacing: -1px;
-      word-spacing: -1.2px;
-      color: #000000;
-      font-weight: normal;
-      text-decoration: none;
-      font-style: normal;
-      font-variant: normal;
-      text-transform: none;
-}
-
-#lobbyDiv{
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2px;
-      padding: 2px 2px 2px;
+      #lobbyLeftSide{
+            display: grid;
+            grid-template-rows: 1fr 6fr;
+            padding: 1rem 1rem 1rem;
+            height: 90vh;
+      }
       
-}
-
-#buttonBox{
-      padding: 1rem 1rem 1rem;
-}
-
-
-.gridItem{
+      .roomchat {
+            display: grid;
+            grid-template-columns: 2fr 3fr 1fr;
+            border: 1px solid gray;
+            height: 200%;
+            gap: 2px;
+            background: rgb(231, 230, 230);
+            box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.11);
+      }
       
-      border: 2px solid gray;
-      box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
-      background: #f7f5f5;
-      padding: 1.5rem 1.5rem 1.5rem;
-      height: 90vh;
+      .gameview {
+            height: 90vh;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 2px;
+      }
       
-}
-
-
-
-Button {
-      font-family: "Courier New", Courier, monospace;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
-	background-color:#ededed;
-	border-radius:6px;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color: black;
-	font-family:Arial;
-	font-size:12px;
-	font-weight:bold;
-	padding:3px 15px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
-}
-Button:hover {
-	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
-	background-color:#dfdfdf;
-}
-Button:active {
-	position:relative;
-	top:1px;
-}
-.row {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0 4px;
-    }
-    
-    /* Create two equal columns that sits next to each other */
-    .column {
-      flex: 10%;
-      padding: 0 4px;
-    }
-    
-    .column img {
-      image-rendering: pixelated;
-      margin-top: 8px;
-      vertical-align: middle;
-      width: 80%;
-      height: auto;
-    }
-  .column button{
-    font-family: "Courier New", Courier, monospace;
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
-    background-color:#ededed;
-    border-radius:6px;  
-    border:1px solid #dcdcdc;
-    display:inline-block;
-    cursor:pointer;
-    color: black;
-    font-family:Arial;
-    font-size:13px;
-    font-weight:bold;
-    padding:3px 10px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #ffffff;
-  }
-
-
-/* button {
-      height: 60%;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: black;
-      border-radius: 0.5rem;
-      display: block;
-      width: 20%;
-      background: transparent;
-      border: 2px solid black;
-      padding: 0.3rem 0 0.3rem;
-}
-  
-button:hover, button:focus {
-      color: maroon;
-      border-color: maroon;
-}
-   */
-  
+      /* .availablerooms{ß
+           
+      }
+      
+      .lobbyWidgeHidden{
+           
+      } */
+      
+      #fullChat{
+           
+            display: grid;
+            grid-template-rows: 1fr 9fr 1fr;
+            border: 1px solid gray;
+            background: #f7f5f5;
+            padding: 1rem 1rem 1rem;
+            gap: 6px;
+      }
+      
+      #stateBox{
+            height: 90vh;
+           display: flex;
+           flex-direction: column;
+           flex-grow: inherit;
+           background: rgb(231, 230, 230);
+            align-items: stretch;
+            justify-items: stretch;
+            gap: 4px;
+      }
+      
+      #viewProfile{
+            height: 10vh;
+            width: 30vw;
+            font-size: 100%
+      }
+      
+      img {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+      }
+          
+      
+      #viewRules{
+            height: 10vh;
+            width: 30vw;
+            font-size: 100%
+      }
+      
+      #userBox{
+            border: 1px solid gray;
+            padding: 1rem 1rem 1rem;
+      }
+      
+      .chatbox{
+            border: 1px solid black;
+            background: white;
+            padding: 1rem 1rem 1rem;
+            height: 62vh;
+            overflow-y:auto;
+      }
+      
+      .stateItem{
+            height: 30vh;
+            border: 1px solid gray;
+            padding: 1rem 1rem 1rem;
+            background: #f7f5f5;
+      }
+      
+      
+      .stateSub{
+            height: 20vh;
+            overflow-y:auto;
+      }
+      
+      .stateSubPlayers{
+            height: 20vh;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+      }
+      
+      .statutTitle{
+          font-size: 50%;  
+      }
+      
+      
+      .chatform{
+            display: grid;
+            grid-template-columns: 7fr 1fr;
+            gap: 1rem;
+      }
+      
+      #typeMessage{
+            display: flex;
+            align-content: stretch;
+            justify-content: stretch;
+      }
+      
+      #gameScreen{
+            display:grid;
+            grid-template-columns: 2fr 3fr 1fr;
+            gap: 4px;
+            padding: 4px 4px 4px;
+      }
+      
+      #usersInRoomBox{
+            
+            border: 1px solid gray;
+            padding: 1rem 1rem 1rem;
+            background: #f7f5f5;
+            display: grid;
+            grid-template-rows: 9fr 1fr;
+            gap: 2rem;
+      }
+      
+      #leaveroombutton{
+            justify-self: bottom;
+            height: 5vh;
+            width: 15vw;
+      }
+      
+      #chatTitle{
+            font-size: 150%;
+      }
+      
+      #welcomeInputDiv{
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            border: 1px solid gray;
+            background: white;
+            box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.11);
+            padding: 5rem 5rem 5rem;
+      }
+      
+      #newUserInputDiv{
+            width: 30vw;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            border: 1px solid gray;
+            background: white;
+            box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.11);
+            padding: 5rem 5rem 5rem;
+      }
+      
+      #welcomeDiv{
+            display: grid;
+            grid-template-rows: 1fr 2fr 1fr;
+            justify-items: center;
+            background: #f7f5f5;
+            height: 98vh;
+      }
+      
+      #newUserDiv{
+            display: grid;
+            grid-template-rows: 1fr 2fr 1fr;
+            justify-items: center;
+            background: #f7f5f5;
+            height: 98vh;
+      }
+      
+      .welcomeInput{
+            width: 30vw;
+      }
+      
+      #failedSignup{
+            padding: 3rem 3rem 3rem;
+      }
+      
+      #failedLogin{
+            padding: 3rem 3rem 3rem;
+      }
+      
+      /* #welcomeHeading{
+            display: grid;
+            grid-template-rows: 2fr 2fr 1fr;
+      } */
+      
+      .centerIt{
+            justify-content: center;
+            text-justify: center;
+      }
+      
+      body{
+            background: white;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 17px;
+            letter-spacing: -1px;
+            word-spacing: -1.2px;
+            color: #000000;
+            font-weight: normal;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+      }
+      
+      #lobbyDiv{
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2px;
+            padding: 2px 2px 2px;
+            
+      }
+      
+      #buttonBox{
+            padding: 1rem 1rem 1rem;
+      }
+      
+      
+      .gridItem{
+            
+            border: 2px solid gray;
+            box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
+            background: #f7f5f5;
+            padding: 1.5rem 1.5rem 1.5rem;
+            height: 90vh;
+            
+      }
+      
+      
+      
+      Button {
+            font-family: "Courier New", Courier, monospace;
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+            background-color:#ededed;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color: black;
+            font-family:Arial;
+            font-size:12px;
+            font-weight:bold;
+            padding:3px 15px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+      }
+      Button:hover {
+            background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+            background-color:#dfdfdf;
+      }
+      Button:active {
+            position:relative;
+            top:1px;
+      }
+      
+      
+      /* button {
+            height: 60%;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: black;
+            border-radius: 0.5rem;
+            display: block;
+            width: 20%;
+            background: transparent;
+            border: 2px solid black;
+            padding: 0.3rem 0 0.3rem;
+      }
+        
+      button:hover, button:focus {
+            color: maroon;
+            border-color: maroon;
+      }
+         */
+        
+      
