@@ -126,6 +126,40 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('login', (credentials) => {
+        let username = credentials.username;
+        let password = credentials.password;
+
+        if (Account.userExists(username) && Account.getPassword(username) == password) {
+            socket.emit('login successful');
+        } else {
+            socket.emit('login unsuccessful');
+        }
+    });
+
+    socket.on('signup', (credentials) => {
+        let username = credentials.username;
+        let password = credentials.password;
+
+        if(Account.userExists(username) || password.length > 3) {
+            socket.emit('signup unsuccessful');
+        } else {
+            socket.emit('signup successful');
+        }
+    });
+
+    socket.on('request profile info', (username) => {
+        if (socket.loggedIn && Account.userExists(username)) {
+            let profile = {
+                username: username,
+                wins: Account.getWins(username),
+                losses: Account.getLosses(username)
+            }
+            socket.emit('profile info', profile);
+        } else {
+            socket.emit('profile request denied');
+        }
+    });
 });
 
 let forbiddenNames = ['attack', 'block', 'heal', 'counter', 'repair', 'die', ''];
