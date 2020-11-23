@@ -16,10 +16,10 @@ let rooms = [];          // array of rooms. indexed by room name
 let forbiddenNames = ['attack', 'block', 'heal', 'counter', 'repair', 'die', '']; // these break things
 // funnily enough, if you tried to attack somebody named 'die', you would die. so that is extremely something that you do NOT want ppl to name themselves
 
-let usernames = [];      // array of usernames currently logged in. indexed by socket id
-let registry = [];       // array of rooms where users are. indexed by socket id
+//let usernames = [];      // array of usernames currently logged in. indexed by socket id
+//let registry = [];       // array of rooms where users are. indexed by socket id
 
-let rooms = [];          // array of rooms. indexed by room name
+//let rooms = [];          // array of rooms. indexed by room name
 
 let lobbyInfo = {
     usernames: usernames,

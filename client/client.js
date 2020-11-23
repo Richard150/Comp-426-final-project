@@ -16,7 +16,7 @@ $(function () {
     $('form.createroomform').submit(function(e){
         let roomname = $('#roomnamefield').val();
         e.preventDefault();
-        $('#container').addClass('hidden');
+        $('#lobbyDiv').addClass('hidden');
         socket.emit('create room', roomname);
         joinRoom(roomname);
         
@@ -35,7 +35,7 @@ $(function () {
     });
 
     socket.on('new name list', function(usernames) {
-        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2>Users Online:</h2>');
+        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2 class="hidden">Users Online:</h2>');
         $('.everybodyonline').html(userList)
     });
 
@@ -162,7 +162,7 @@ $(function () {
     $('#leaveroombutton').click(function(){
         socket.emit('leave room');
         currentRoom = 'lobby';
-        $('#container').removeClass('hidden');
+        $('#lobbyDiv').removeClass('hidden');
         $('.lobby').removeClass('hidden');
         $('#gameScreen').addClass('hidden');
         $('.everybodyonline').removeClass('hidden');
@@ -188,8 +188,22 @@ $(function () {
     });
 
     $('#loginButton').on('click', (e) =>{
+        let username1 = $('#userNameInput').val();
+        let password1 = $('#passwordInput').val();
+        let credentials = {
+            username: username1,
+            password: password1
+        }
+        socket.emit('login', credentials);
+    });
+
+    socket.on('login successful', ()=>{
         $('#lobbyDiv').removeClass('hidden');
-        $('#welcomeDiv').addClass('hidden');
+        $('#welcomeInputDiv').addClass('hidden');
+    });
+
+    socket.on('login unsuccessful', () =>{
+        $('#wordDiv').append(`<span>Login unsucessful. Reload page to try again</span>`);
     });
 
     $('#newAccount').on('click', (e) => {
@@ -198,9 +212,22 @@ $(function () {
     });
 
     $('#makeAccount').on('click', (e) =>{
+        let username2 = $('#newUserNameInput').val();
+        let password2 = $('#newPasswordInput').val();
+        let credentials = {
+            username: username2,
+            password: password2
+        }
+        socket.emit('signup', credentials);
+    });
+    
+    socket.on('signup unsuccessful', ()=>{
         $('#lobbyDiv').removeClass('hidden');
         $('#newUserDiv').addClass('hidden');
     });
-
     
+    socket.on('signup unsuccessful', ()=>{
+        $('#newUserDiv').prepend(`<span>Signup unsucessful. Please try again</span>`);
+    });
+
 });
