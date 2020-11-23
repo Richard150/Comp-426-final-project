@@ -2,10 +2,9 @@ const account_data = require('data-store')({path: process.cwd() + '/data/account
 
 class Account {
 
-    constructor(username, password, avatar) {
+    constructor(username, password) {
         this.username = username;
         this.password = password;
-        this.avatar = avatar;
         this.wins = 0;
         this.gamesPlayed = 0;
         this.successfulAttacks = 0;
@@ -17,6 +16,9 @@ class Account {
         this.successfulHeals = 0;
         this.failedHeals = 0;
         this.totalRepairs = 0;
+
+        this.avatar = Math.floor(Math.random() * 42);
+
     }
 
     update() {
@@ -290,7 +292,7 @@ Account.create = (username, password, avatar) => {
     if (Object.keys(account_data.data).filter(nextUser => nextUser == username).length > 0) {
         return undefined;
     }
-    let a = new Account(username, password, avatar);
+    let a = new Account(username, password);
     account_data.set(a.username, a);
     return a;
 }
