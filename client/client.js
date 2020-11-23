@@ -282,4 +282,14 @@ $(function () {
         socket.emit('change avatar', avatarID);
         socket.emit('request profile info', myName);
     });
+
+    $('#deleteProfile').on('click', function() {
+        let confirmation = $('#DELETEME').val();
+        console.log('delete plsz');
+        if (confirmation == 'DELETEME') {
+            socket.emit('delete profile');
+            $('body').empty();
+            $('body').append('you have destroyed everything...');
+        }
+    });
 });
