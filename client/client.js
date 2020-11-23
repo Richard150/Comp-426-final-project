@@ -191,12 +191,12 @@ $(function () {
         $('#avatarDiv').addClass('hidden');
         $('#lobbyDiv').addClass('hidden');
         $('#gameScreen').addClass('hidden');
-        let $userStats = $('#userStats');
-        $userStats.html('');
 
-        $userStats.append(`<img style='width:160px;height:160px' src='/avatars/Icon${avatars[profile.avatar]}.png' alt=${avatars[profile.avatar]}>`)
+        $('#profileAvatar').html(`<img style='width:160px;height:160px' src='/avatars/Icon${avatars[profile.avatar]}.png' alt=${avatars[profile.avatar]}>`)
         let keys = Object.keys(profile);
-        keys.forEach(key => {if (key != 'avatar') $userStats.append(`<br>${key}: ${profile[key]}`)});
+        keys.forEach(key => {
+            $(`span.${key}`).text(profile[key]);
+        });
     }
 
     socket.on('profile info', profile => {
