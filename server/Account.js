@@ -192,6 +192,78 @@ Account.getLosses = (username) => {
     return adata.losses;
 }
 
+Account.getSucAttacks = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.successfulAttacks;
+}
+
+Account.getFailedAttacks = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.failedAttacks;
+}
+
+Account.getSucBlocks = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.successfulBlocks;
+}
+
+Account.getFailedBlocks = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.failedBlocks;
+}
+
+Account.getSucCounters = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.successfulCounters;
+}
+
+Account.getFailedCounters = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.failedCounters;
+}
+
+Account.getSucHeals = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.successfulHeals;
+}
+
+Account.getFailedHeals = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.failedHeals;
+}
+
+Account.getTotalRepairs = (username) => {
+    let adata = account_data.get(username);
+    if (adata == undefined) {
+        return undefined;
+    }
+    return adata.totalRepairs;
+}
+
 Account.getAllUsers = () => {
     return Object.keys(account_data.data).map(username => { return username} );
     // returns array of all account ID's

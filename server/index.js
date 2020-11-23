@@ -154,7 +154,16 @@ io.on('connection', (socket) => {
             let profile = {
                 username: username,
                 wins: Account.getWins(username),
-                losses: Account.getLosses(username)
+                losses: Account.getLosses(username),
+                successfulAttacks: Account.getSucAttacks(username),
+                failedAttacks: Account.getFailedAttacks(username),
+                successfulBlocks: Account.getSucBlocks(username),
+                failedBlocks: Account.getFailedBlocks(username),
+                successfulCounters: Account.getSucCounters(username),
+                failedCounters: Account.getFailedCounters(username),
+                successfulHeals: Account.getSucHeals(username),
+                failedHeals: Account.getFailedHeals(username),
+                totalRepairs: Account.getTotalRepairs(username)
             }
             socket.emit('profile info', profile);
         } else {
