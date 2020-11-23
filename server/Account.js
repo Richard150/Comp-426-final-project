@@ -7,7 +7,7 @@ class Account {
         this.password = password;
         this.avatar = avatar;
         this.wins = 0;
-        this.losses = 0;
+        this.gamesPlayed = 0;
         this.successfulAttacks = 0;
         this.failedAttacks = 0;
         this.successfulBlocks = 0;
@@ -159,14 +159,14 @@ Account.addWin = (username) => {
     return adata.wins;
 }
 
-Account.addLoss = (username) =>{
+Account.addGamesPlayed = (username) =>{
     let adata = account_data.get(username);
     if (adata == undefined) {
         return undefined;
     }
-    adata.losses++;
+    adata.gamesPlayed++;
     account_data.set(adata.username, adata);
-    return adata.losses;
+    return adata.gamesPlayed;
 }
 
 Account.getAvatar = (username) => {
@@ -193,12 +193,12 @@ Account.getWins = (username) => {
     return adata.wins;
 }
 
-Account.getLosses = (username) => {
+Account.getGamesPlayed = (username) => {
     let adata = account_data.get(username);
     if (adata == undefined) {
         return undefined;
     }
-    return adata.losses;
+    return adata.gamesPlayed;
 }
 
 Account.getSucAttacks = (username) => {
@@ -283,7 +283,7 @@ Account.findByUsername = (username) => {
     if (adata == undefined) {
         return undefined;
     }
-    return new Account(adata.username, adata.password, adata.avatar, adata.wins, adata.losses);
+    return adata;
 }
 
 Account.create = (username, password, avatar) => {
@@ -294,7 +294,5 @@ Account.create = (username, password, avatar) => {
     account_data.set(a.username, a);
     return a;
 }
-
-console.log(Account.setAvatar('richyj', 33));
 
 module.exports = Account;
