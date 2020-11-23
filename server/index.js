@@ -117,7 +117,7 @@ io.on('connection', (socket) => {
             let username = credentials.username;
             let password = credentials.password;
 
-            if (Account.userExists(username) && Account.getPassword(username) == password.substring(0,3)) {
+            if (Account.userExists(username) && Account.getPassword(username) == password.substring(0,3) && !Object.values(usernames).includes(username)) {
                 socket.emit('login successful');
                 socket.loggedIn = true;
                 socket.userName = username;
@@ -153,7 +153,8 @@ io.on('connection', (socket) => {
             let profile = {
                 username: username,
                 wins: Account.getWins(username),
-                losses: Account.getLosses(username),
+                gamesPlayed: Account.getGamesPlayed(username),
+                avatar: Account.getAvatar(username),
                 successfulAttacks: Account.getSucAttacks(username),
                 failedAttacks: Account.getFailedAttacks(username),
                 successfulBlocks: Account.getSucBlocks(username),
