@@ -181,10 +181,26 @@ $(function () {
 
     $("#viewProfile").on('click', (e) =>{
         socket.emit('request profile info', myName);
-        // $('#profileDiv').removeClass('hidden');
-        // $('#lobbyDiv').addClass('hidden');
-        // $('#gameScreen').addClass('hidden');
+        $('#profileDeleter').removeClass('hidden');
+        $('#chooseAvatar').removeClass('hidden');
     });
+
+    $("#searchSubmit").on('click', (e) =>{
+        let name = $('#userSearch').val();
+        socket.emit('request profile info', name);
+        $('#profileDeleter').addClass('hidden');
+        $('#chooseAvatar').addClass('hidden');
+        
+    });
+
+    $('#userSearch').on('click', (e) =>{
+        $('#notfound').addClass('hidden');
+    });
+
+    socket.on('profile request denied', () => {
+        $('#notfound').removeClass('hidden');
+    });
+
 
     function loadProfile(profile) {
         $('#profileDiv').removeClass('hidden');
@@ -200,9 +216,7 @@ $(function () {
     }
 
     socket.on('profile info', profile => {
-
         loadProfile(profile);
-
     });
 
     $('.lobbyReturn').on('click', (e) =>{
@@ -291,5 +305,9 @@ $(function () {
             $('body').empty();
             $('body').append('you have destroyed everything...');
         }
+    });
+
+    $('#searchSubmit').on('click', (e) => {
+
     });
 });

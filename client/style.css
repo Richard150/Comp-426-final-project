@@ -19,6 +19,24 @@
             grid-template-rows: 1fr 6fr;
             padding: 1rem 1rem 1rem;
             height: 90vh;
+      
+      }
+
+      .lobbyLeftItem{
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            padding: 1rem 1rem 1rem;
+            gap: 1rem;
+            height: 20vh;
+
+      }
+
+      #usersText{
+            font-size: 150%;
+      }
+
+      #userBox{
+            height: 48vh;
       }
       
       .roomchat {
@@ -67,11 +85,11 @@
             gap: 4px;
       }
       
-      #viewProfile{
+      /* #viewProfile{
             height: 10vh;
             width: 30vw;
             font-size: 100%
-      }
+      } */
       
       img {
             image-rendering: pixelated;
@@ -80,11 +98,11 @@
       }
           
       
-      #viewRules{
+      /* #viewRules{
             height: 10vh;
             width: 30vw;
             font-size: 100%
-      }
+      } */
       
       #userBox{
             border: 1px solid gray;
@@ -286,6 +304,8 @@
             position:relative;
             top:1px;
       }
+      
+      
       .row {
             display: flex;
             flex-wrap: wrap;
@@ -307,23 +327,6 @@
           }
       
       
-      /* button {
-            height: 60%;
-            justify-content: space-between;
-            font-size: 0.7rem;
-            color: black;
-            border-radius: 0.5rem;
-            display: block;
-            width: 20%;
-            background: transparent;
-            border: 2px solid black;
-            padding: 0.3rem 0 0.3rem;
-      }
-        
-      button:hover, button:focus {
-            color: maroon;
-            border-color: maroon;
-      }
-         */
+
         
       
