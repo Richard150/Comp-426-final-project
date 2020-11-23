@@ -174,9 +174,21 @@ $(function () {
     };
 
     $("#viewProfile").on('click', (e) =>{
+        socket.emit('request profile info', myName);
+        // $('#profileDiv').removeClass('hidden');
+        // $('#lobbyDiv').addClass('hidden');
+        // $('#gameScreen').addClass('hidden');
+    });
+
+    socket.on('profile info', profile => {
         $('#profileDiv').removeClass('hidden');
         $('#lobbyDiv').addClass('hidden');
         $('#gameScreen').addClass('hidden');
+        let $userStats = $('#userStats');
+        $userStats.html('');
+        let keys = Object.keys(profile);
+        keys.forEach(key => $userStats.append(`<br>${key}: ${profile[key]}`));
+
     });
 
     $('#lobbyReturn').on('click', (e) =>{
