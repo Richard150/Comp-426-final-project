@@ -29,15 +29,16 @@ $(function () {
         
     // });
 
-    socket.on('new name list', function(usernames) {
+    socket.on('lobby update', function(lobbyInfo) {
+        let usernames = lobbyInfo.usernames;
+        let rooms = lobbyInfo.rooms;
+
         let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2 class="hidden">Users Online:</h2>');
         $('.everybodyonline').html(userList)
-    });
 
-    socket.on('roomlist update', function(rooms) {
         let roomList = rooms.reduce((acc, curr) => acc += `<br><button class="roombutton" id="room-${curr}">Join ${curr}</button>`, '<h2>Join a room or create your own!</h2>');
         $('.availablerooms').html(roomList);
-    });
+    })
 
     let $timerDisplay = $(`<div></div>`);
     let timeLeft = 15;

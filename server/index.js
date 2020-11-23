@@ -22,11 +22,7 @@ let forbiddenNames = ['attack', 'block', 'heal', 'counter', 'repair', 'die', '']
 
 //let rooms = [];          // array of rooms. indexed by room name
 
-let lobbyInfo = {
-    usernames: usernames,
-    rooms: rooms,
-    onlineCount: Object.keys(registry).length
-}
+
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, '../client')});
@@ -63,7 +59,7 @@ io.on('connection', (socket) => {
             leaveRoom(socket);
             delete registry[socket.id];
 
-            io.to('lobby').emit('lobby update', lobbyInfo);
+            io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
 
     });
@@ -76,7 +72,7 @@ io.on('connection', (socket) => {
                 rooms[roomName] = new Room(io, socket, roomName);
             }
 
-            io.emit('roomlist update', Object.keys(rooms));
+            io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
     });
 
@@ -185,7 +181,7 @@ io.on('connection', (socket) => {
 let joinLobby = (socket) => {
     socket.join('lobby');
     registry[socket.id] = 'lobby';
-    io.to('lobby').emit('lobby update', lobbyInfo);
+    io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
 }
 
 // HOW TO SET A USER'S USERNAME //////////////////////////////
@@ -207,7 +203,7 @@ let leaveRoom = (socket) => {
         room.userLeave(socket);
         if (room.userList.length == 0) {
             delete rooms[roomName];
-            io.emit('roomlist update', Object.keys(rooms));
+            io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
     }
 }

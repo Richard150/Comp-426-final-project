@@ -69,14 +69,14 @@ class Game {
                             this.updateTurnSummary('countered attack', player, player.target); // target countered player's attack
                             player.health--;
                             Account.addFailedAttack(player.userName);
-                            Account.addSucCounter(player.target.userName);
+                            Account.addSucCounters(player.target.userName);
                             break;
 
                         case 'heal':
                             this.updateTurnSummary('heal interrupted', player, player.target); // target tried to heal, but was attacked by player
                             player.target.health--;
                             Account.addSucAttack(player.userName);
-                            Account.addFailedHeal(player.target.userName);
+                            Account.addFailedHeals(player.target.userName);
                             break;
 
                         default:
@@ -104,7 +104,7 @@ class Game {
                     if (player.attackers.length == 0) {
                         player.health--;
                         this.updateTurnSummary('countered nobody', player); // player countered for no reason
-                        Account.addFailedCounter(player.userName);
+                        Account.addFailedCounters(player.userName);
                     }
                     break;
 
@@ -112,7 +112,7 @@ class Game {
                     if (player.attackers.length == 0) {
                         player.health++;
                         this.updateTurnSummary('healed', player); // player healed
-                        Account.addSucHeal(player.userName);
+                        Account.addSucHeals(player.userName);
                     } // for block, counter, and heal, we dont need to have an else statement since we handle that case when looking at the attacker
                     break;
 
