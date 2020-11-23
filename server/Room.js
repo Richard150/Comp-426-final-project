@@ -1,4 +1,5 @@
 const Game = require("./Game");
+const Account = require('./Account');
 
 class Room {
     constructor(io, creatorSocket, roomName) {
@@ -38,6 +39,8 @@ class Room {
     newTurn(data) {
         clearTimeout(this.turnTimer);
 
+        let usernames = Object.keys(data.players);
+
         this.gameData.lockedIn = [];
         this.gameData.data = data;
 
@@ -48,8 +51,16 @@ class Room {
         if(!this.gameData.live) {
             if(livingPlayers.length == 0) {
                 this.gameData.winner = '$nobody';
+                usernames.forEach(name => Account.addLoss(name));
+                // addLoss everyone
             } else {
-                this.gameData.winner = Object.keys(data.players).find(p => data.players[p].health > 0);
+                this.gameData.winner = usernames.find(p => data.players[p].health > 0);
+                Account.addWin(this.gameData.winner);
+                // addLoss (everyone else)
+                for (let i = 0; i < usernames.length; i++) {
+                    if (usernames[i] !== this.game.winner) { Account.addLoss(usernames[i]); }
+                }
+                
             }
         } else {
             this.turnTimer = setTimeout(() => {this.newTurn(this.game.resolveTurn())}, 10000);
