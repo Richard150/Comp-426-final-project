@@ -62,7 +62,7 @@ $(function () {
         let event = roomdata.event;                 // string describing what happened in the room:
                                                     // 'new turn', 'new message', 'user joined', 'user left', 'created room', and 'action submitted'
 
-        if (event == 'new turn') timeLeft = 10;
+        if (event == 'new turn') timeLeft = 15;
 
         console.log('room update');
         console.log(roomdata);

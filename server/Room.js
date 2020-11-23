@@ -63,7 +63,7 @@ class Room {
                 
             }
         } else {
-            this.turnTimer = setTimeout(() => {this.newTurn(this.game.resolveTurn())}, 10000);
+            this.turnTimer = setTimeout(() => {this.newTurn(this.game.resolveTurn())}, 15000);
         }
 
         this.dataToClient.event = 'new turn';
