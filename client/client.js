@@ -175,4 +175,32 @@ $(function () {
         $('.roomchat').removeClass('hidden');
         $('.everybodyonline').addClass('hidden');
     };
+
+    $("#viewProfile").on('click', (e) =>{
+        $('#profileDiv').removeClass('hidden');
+        $('#lobbyDiv').addClass('hidden');
+        $('#gameScreen').addClass('hidden');
+    });
+
+    $('#lobbyReturn').on('click', (e) =>{
+        $('#profileDiv').addClass('hidden');
+        $('#lobbyDiv').removeClass('hidden');
+    });
+
+    $('#loginButton').on('click', (e) =>{
+        $('#lobbyDiv').removeClass('hidden');
+        $('#welcomeDiv').addClass('hidden');
+    });
+
+    $('#newAccount').on('click', (e) => {
+        $('#welcomeDiv').addClass('hidden');
+        $('#newUserDiv').removeClass('hidden');
+    });
+
+    $('#makeAccount').on('click', (e) =>{
+        $('#lobbyDiv').removeClass('hidden');
+        $('#newUserDiv').addClass('hidden');
+    });
+
+    
 });
