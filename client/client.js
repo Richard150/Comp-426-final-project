@@ -66,9 +66,6 @@ $(function () {
         let event = roomdata.event;                 // string describing what happened in the room:
                                                     // 'new turn', 'new message', 'user joined', 'user left', 'created room', and 'action submitted'
 
-        console.log('room update:');
-        console.log(roomdata);
-
         if (event == 'new turn') timeLeft = 10;
 
         /**
@@ -203,7 +200,7 @@ $(function () {
     });
 
     socket.on('login unsuccessful', () =>{
-        $('#wordDiv').append(`<span>Login unsucessful. Reload page to try again</span>`);
+        $('#welcomeDiv').append(`<span>Login unsucessful. Reload page to try again</span>`);
     });
 
     $('#newAccount').on('click', (e) => {

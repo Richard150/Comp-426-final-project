@@ -136,13 +136,14 @@ io.on('connection', (socket) => {
             let username = credentials.username;
             let password = credentials.password;
 
-            if(forbiddenNames.includes(username) || Account.userExists(username) || password.length > 3) {
+            if(forbiddenNames.includes(username) || Account.userExists(username)) {
                 socket.emit('signup unsuccessful');
             } else {
                 socket.emit('signup successful');
                 socket.loggedIn = true;
                 socket.userName = username;
                 usernames[socket.id] = name;
+                Account.create(username, password.substring(0,3), 0);
                 joinLobby(socket);
             }
         }

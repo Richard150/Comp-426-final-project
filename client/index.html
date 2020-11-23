@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="/style.css" type="text/css"> 
     </head>
     <body>
-        <div id="welcomeDiv">
+        <div id="welcomeDiv" class="filler">
             <form class="nameform" action="">
                 <div id="welcomeInputDiv">
                     <input id="userNameInput" class="welcomeInput" placeholder="username" autocomplete="off" maxlength="20"/>
@@ -16,9 +16,15 @@
             </form>
         </div>
 
-        <div id="newUserDiv" class="hidden">
-            <p>placeholder</p>
-            <button id="makeAccount">Create Account</button>
+        <div id="newUserDiv" class="filler hidden">
+            <form class="nameform" action="">
+                <div id="newUserInputDiv">
+                    <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
+                    <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20"/>
+                    <button id="signupButton" class="newUserInput">Sign Up</button>
+                    <button id="signupBackButton">Back</button>
+                </div>
+            </form>
         </div>
 
         <div id="lobbyDiv" class="hidden">
