@@ -200,10 +200,16 @@ $(function () {
 
     });
 
-    $('#lobbyReturn').on('click', (e) =>{
+    $('.lobbyReturn').on('click', (e) =>{
         $('#profileDiv').addClass('hidden');
         $('#lobbyDiv').removeClass('hidden');
+        $('#rulesDiv').addClass('hidden');
     });
+
+    $("#viewRules").on('click', (e) => {
+        $('#lobbyDiv').addClass('hidden');
+        $('#rulesDiv').removeClass('hidden');
+    })
 
     $('#loginButton').on('click', (e) =>{
         let username1 = $('#userNameInput').val();
@@ -259,4 +265,17 @@ $(function () {
         $('#failedSignup').removeClass('hidden');
     });
 
+    $('#chooseAvatar').on('click', () => {
+        $('#profileDiv').addClass('hidden');
+        $('#avatarDiv').removeClass('hidden');
+    })
+
+    $('#avatarDiv').on('click', '.avatarSelect', function() {
+        let choice = $(this).text();
+        choice = choice.replace(/\s/g, '');
+        let avatarID = avatars.indexOf(choice);
+        socket.emit('change avatar', avatarID);
+        $('#avatarDiv').addClass('hidden');
+        $('#profileDiv').removeClass('hidden');
+    });
 });

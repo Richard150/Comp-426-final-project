@@ -176,6 +176,10 @@ io.on('connection', (socket) => {
             Account.setAvatar(socket.userName, avatarID);
         }
     });
+
+    socket.on('delete profile', () => {
+        
+    });
 });
 
 

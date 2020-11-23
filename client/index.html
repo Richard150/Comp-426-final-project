@@ -84,7 +84,9 @@
         <div id="profileDiv" class="hidden">
 
             <div id="userStats"></div>
-            <button id="lobbyReturn" type="button">Return to lobby</button>
+            
+            <button id="chooseAvatar" type="button">Choose avatar</button>
+            <button class="lobbyReturn" type="button">Return to lobby</button>
             <!-- <header>
                 <div class = "left">
                     <ul>
@@ -117,6 +119,219 @@
                   <p>Losses.</p>
                 </div>
               </div> -->
+        </div>
+
+        <div id="rulesDiv" class="hidden">
+            <div id="rulesTitle">
+                <h1 id="rulesH1">Colosseum's Rules</p>
+            </div>
+            <div id="rulesList">
+                <ul>
+                    <li>the game can start with any # of players, each with 3 health. Each turn a player can choose to:
+                        <ul>
+                            <li>attack one other player</li>
+                            <li>block incoming attacks</li>
+                            <li>counter incoming attacks</li>
+                            <li>heal</li>
+                            <li>repair your shield</li>
+                        </ul>
+                    </li>
+                    <li>If you’re attacked when you’re not blocking or countering you lose 1 health per incoming attack.</li>
+                    <li>If you block you take no damage from incoming attacks. If you block an attack your shield breaks and you can’t block again until you spend a turn repairing your shield.</li>
+                    <li>If you counter you take no damage from incoming attacks and you also deal 1 damage to anybody that attacks you that turn. However, if nobody attacks you, you take 1 damage.</li>
+                    <li>If you heal and nobody attacks you you regain 1 health. If you’re attacked while healing your heal is cancelled and you take damage as usual. You can’t heal when at 4 health.</li>
+                </ul>
+            </div>
+            <button class="lobbyReturn" type="button">Return to lobby</button>
+        </div>
+ 
+
+        <div id='avatarDiv' class='hidden'>
+            <div class="row">
+                <div class="column">
+                    <div>
+                    <img src="avatars\IconArcher.png">
+                    </div>
+                    <div>
+                      <button class='avatarSelect'>Archer</button>
+                    </div>
+                    <img src="avatars\IconBlackKnight.png">
+                  <div>
+                    <button class='avatarSelect'>Black Knight</button>
+                  </div>
+                  
+                  <img src="avatars\IconCavalier.png">
+                  <div>
+                    <button class='avatarSelect'>Cavalier</button>
+                  </div>
+                  <img src="avatars\IconCentaur.png">
+                  <div>
+                    <button class='avatarSelect'>Centaur</button>
+                  </div>
+                  <img src="avatars/IconCyclops.png">
+                  <div>
+                    <button class='avatarSelect'>Cyclops</button>
+                  </div>
+                  <img src="avatars/IconWolfRider.png">
+                  <div>
+                    <button class='avatarSelect'>Wolf Rider</button>
+                  </div>
+                </div>
+                <div class="column">
+                  <img src="avatars/IconDeer.png">
+                  <div>
+                    <button class='avatarSelect'>Deer</button>
+                  </div>
+                  <img src="avatars/IconDemon.png">
+                  <div>
+                    <button class='avatarSelect'>Demon</button>
+                  </div>
+                  <img src="avatars/IconDevil.png">
+                  <div>
+                    <button class='avatarSelect'>Devil</button>
+                  </div>
+                  <img src="avatars/IconDjinn.png">
+                  <div>
+                    <button class='avatarSelect'>Djinn</button>
+                  </div>
+                  <img src="avatars/IconDruid.png">
+                  <div>
+                    <button class='avatarSelect'>Druid</button>
+                  </div>
+                </div>
+                <div class="column">
+                  <img src="avatars/IconDwarf.png">
+                  <div>
+                    <button class='avatarSelect'>Dwarf</button>
+                  </div>
+                  <img src="avatars/IconEfreet.png">
+                  <div>
+                    <button class='avatarSelect'>Efreet</button>
+                  </div>
+                  <img src="avatars/IconGargoyle.png">
+                  <div>
+                    <button class='avatarSelect'>Gargoyle</button>
+                  </div>
+                  <img src="avatars/IconGhost.png">
+                  <div>
+                    <button class='avatarSelect'>Ghost</button>
+                  </div>
+                  <img src="avatars/IconGoblin.png">
+                  <div>
+                    <button class='avatarSelect'>Goblin</button>
+                  </div>
+                </div>
+                <div class="column">
+                  <img src="avatars/IconGog.png">
+                  <div>
+                    <button class='avatarSelect'>Gog</button>
+                  </div>
+                  <img src="avatars/IconGolem.png">
+                  <div>
+                    <button class='avatarSelect'>Golem</button>
+                  </div>
+                  <img src="avatars/IconGremlin.png">
+                  <div>
+                    <button class='avatarSelect'>Gremlin</button>
+                  </div>
+                  <img src="avatars/IconGriffin.png">
+                  <div>
+                    <button class='avatarSelect'>Griffin</button>
+                  </div>
+                  <img src="avatars/IconHarpy.png">
+                  <div>
+                    <button class='avatarSelect'>Harpy</button>
+                  </div>
+                </div>
+                <div class="column">
+                  <img src="avatars/IconHellHound.png">
+                  <div>
+                    <button class='avatarSelect'>Hell Hound</button>
+                  </div>
+                    <img src="avatars/IconHunter.png">
+                    <div>
+                      <button class='avatarSelect'>Hunter</button>
+                    </div>
+                    <img src="avatars/IconImp.png">
+                    <div>
+                      <button class='avatarSelect'>Imp</button>
+                    </div>
+                    <img src="avatars/IconLich.png">
+                    <div>
+                      <button class='avatarSelect'>Lich</button>
+                    </div>
+                    <img src="avatars/IconMage.png">
+                    <div>
+                      <button class='avatarSelect'>Mage</button>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <img src="avatars/IconMonk.png">
+                    <div>
+                      <button class='avatarSelect'>Monk</button>
+                    </div>
+                    <img src="avatars/IconNaga.png">
+                    <div>
+                      <button class='avatarSelect'>Nage</button>
+                    </div>
+                    <img src="avatars/IconPaladin.png">
+                    <div>
+                      <button class='avatarSelect'>Paladin</button>
+                    </div>
+                    <img src="avatars/IconPikeman.png">
+                    <div>
+                      <button class='avatarSelect'>Pikeman</button>
+                    </div>
+                    <img src="avatars/IconPitFiend.png">
+                    <div>
+                      <button class='avatarSelect'>Pit Fiend</button>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <img src="avatars/IconPixie.png">
+                    <div>
+                      <button class='avatarSelect'>Pixie</button>
+                    </div>
+                    <img src="avatars/IconSatyr.png">
+                    <div>
+                      <button class='avatarSelect'>Satyr</button>
+                    </div>
+                    <img src="avatars/IconShaman.png">
+                    <div>
+                      <button class='avatarSelect'>Shaman</button>
+                    </div>
+                    <img src="avatars/IconSkeleton.png">
+                    <div>
+                      <button class='avatarSelect'>Skeleton</button>
+                    </div>
+                    <img src="avatars/IconSpider.png">
+                    <div>
+                      <button class='avatarSelect'>Spider</button>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <img src="avatars/IconSwordsman.png">
+                    <div>
+                      <button class='avatarSelect'>Swordsman</button>
+                    </div>
+                    <img src="avatars/IconTitan.png">
+                    <div>
+                      <button class='avatarSelect'>Titan</button>
+                    </div>
+                    <img src="avatars/IconTreant.png">
+                    <div>
+                      <button class='avatarSelect'>Treant</button>
+                    </div>
+                    <img src="avatars/IconTroll.png">
+                    <div>
+                      <button class='avatarSelect'>Troll</button>
+                    </div>
+                    <img src="avatars/IconVampire.png">
+                    <div>
+                      <button class='avatarSelect'>Vampire</button>
+                    </div>
+                  </div>
+              </div>
         </div>
 
         <script src="/socket.io/socket.io.js"></script>
