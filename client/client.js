@@ -1,4 +1,10 @@
-
+const avatars = ['Archer', 'BlackKnight', 'Cavalier', 'Centaur', 'Cyclops', 'Deer', 
+                 'Demon', 'Devil', 'Djinn', 'Druid', 'Dwarf', 'Efreet', 'Gargoyle', 
+                 'Ghost', 'Goblin', 'Gog', 'Golem', 'Gremlin', 'Griffin', 'Harpy', 
+                 'HellHound', 'Hunter', 'Imp', 'Lich', 'Mage', 'Monk', 'Naga', 
+                 'Paladin', 'Pikeman', 'PitFiend', 'Pixie', 'Satyr', 'Shaman', 
+                 'Skeleton', 'Spider', 'Swordsman', 'Titan', 'Treant', 'Troll', 
+                 'Vampire', 'WolfRider', 'Zombie'];
 $(function () {
     let socket = io();
     let myName = '';
@@ -181,13 +187,16 @@ $(function () {
     });
 
     socket.on('profile info', profile => {
+
         $('#profileDiv').removeClass('hidden');
         $('#lobbyDiv').addClass('hidden');
         $('#gameScreen').addClass('hidden');
         let $userStats = $('#userStats');
         $userStats.html('');
+
+        $userStats.append(`<img style='width:160px;height:160px' src='/avatars/Icon${avatars[profile.avatar]}.png' alt=${avatars[profile.avatar]}>`)
         let keys = Object.keys(profile);
-        keys.forEach(key => $userStats.append(`<br>${key}: ${profile[key]}`));
+        keys.forEach(key => {if (key != 'avatar') $userStats.append(`<br>${key}: ${profile[key]}`)});
 
     });
 
