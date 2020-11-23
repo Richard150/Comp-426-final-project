@@ -6,6 +6,7 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 const Room = require('./Room');
+const Account = require('./Account');
 
 let connectedUsers = []; // array storing all users currently online. indexed by socket id
 let usernames = [];      // array of usernames. indexed by socket id
