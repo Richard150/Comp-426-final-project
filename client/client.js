@@ -186,9 +186,9 @@ $(function () {
         // $('#gameScreen').addClass('hidden');
     });
 
-    socket.on('profile info', profile => {
-
+    function loadProfile(profile) {
         $('#profileDiv').removeClass('hidden');
+        $('#avatarDiv').addClass('hidden');
         $('#lobbyDiv').addClass('hidden');
         $('#gameScreen').addClass('hidden');
         let $userStats = $('#userStats');
@@ -197,6 +197,11 @@ $(function () {
         $userStats.append(`<img style='width:160px;height:160px' src='/avatars/Icon${avatars[profile.avatar]}.png' alt=${avatars[profile.avatar]}>`)
         let keys = Object.keys(profile);
         keys.forEach(key => {if (key != 'avatar') $userStats.append(`<br>${key}: ${profile[key]}`)});
+    }
+
+    socket.on('profile info', profile => {
+
+        loadProfile(profile);
 
     });
 
@@ -275,7 +280,6 @@ $(function () {
         choice = choice.replace(/\s/g, '');
         let avatarID = avatars.indexOf(choice);
         socket.emit('change avatar', avatarID);
-        $('#avatarDiv').addClass('hidden');
-        $('#profileDiv').removeClass('hidden');
+        socket.emit('request profile info', myName);
     });
 });
