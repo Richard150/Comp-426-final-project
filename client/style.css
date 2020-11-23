@@ -73,6 +73,19 @@
       font-size: 100%
 }
 
+img {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+}
+    
+
+#viewRules{
+      height: 10vh;
+      width: 30vw;
+      font-size: 100%
+}
+
 #userBox{
       border: 1px solid gray;
       padding: 1rem 1rem 1rem;
