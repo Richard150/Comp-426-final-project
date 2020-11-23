@@ -1,3 +1,5 @@
+const Account = require('./Account');
+
 class Game {
     constructor(userList) {
         this.playerList = [];
@@ -59,38 +61,50 @@ class Game {
 
                         case 'block':
                             this.updateTurnSummary('blocked attack', player, player.target); // target blocked player's attack
+                            Account.addFailedAttack(player.userName);
+                            Account.addSucBlock(player.target.userName);
                             break;
 
                         case 'counter':
                             this.updateTurnSummary('countered attack', player, player.target); // target countered player's attack
                             player.health--;
+                            Account.addFailedAttack(player.userName);
+                            Account.addSucCounter(player.target.userName);
                             break;
 
                         case 'heal':
                             this.updateTurnSummary('heal interrupted', player, player.target); // target tried to heal, but was attacked by player
                             player.target.health--;
+                            Account.addSucAttack(player.userName);
+                            Account.addFailedHeal(player.target.userName);
                             break;
 
                         default:
                             this.updateTurnSummary('attacked', player, player.target); // player attacked target
+                            Account.addSucAttack(player.userName);
                             player.target.health--;
                     }
                     break;
 
                 case 'block':
                     player.shieldReady = player.attackers.length == 0;
-                    if (player.shieldReady) this.updateTurnSummary('blocked nothing', player); // player blocked for no reason
+                    if (player.shieldReady) {
+                        this.updateTurnSummary('blocked nothing', player); // player blocked for no reason
+                        Account.addFailedBlock(player.userName);
+                    }
                     break;
 
                 case 'repair':
                     player.shieldReady = true;
                     this.updateTurnSummary('repaired', player); // player repaired their shield
+                    Account.addRepair(player.userName);
                     break;
 
                 case 'counter':
                     if (player.attackers.length == 0) {
                         player.health--;
                         this.updateTurnSummary('countered nobody', player); // player countered for no reason
+                        Account.addFailedCounter(player.userName);
                     }
                     break;
 
@@ -98,6 +112,7 @@ class Game {
                     if (player.attackers.length == 0) {
                         player.health++;
                         this.updateTurnSummary('healed', player); // player healed
+                        Account.addSucHeal(player.userName);
                     } // for block, counter, and heal, we dont need to have an else statement since we handle that case when looking at the attacker
                     break;
 

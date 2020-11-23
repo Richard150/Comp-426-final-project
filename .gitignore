@@ -1,0 +1,5 @@
+.env
+/node_modules
+/login-portal
+/.vscode
+/data

@@ -4,19 +4,14 @@ $(function () {
     let myName = '';
     let currentRoom = 'lobby';
 
-    $('form.nameform').submit(function(e){
+    $('form').submit(function(e) {
         e.preventDefault();
-        socket.emit('choose name', $('#namefield').val());
-        myName = $('#namefield').val();
-        $('form.nameform').remove();
-        $('.lobby').removeClass('hidden');
-        $('.info').html(`<div></div>`);
     });
 
     $('form.createroomform').submit(function(e){
         let roomname = $('#roomnamefield').val();
         e.preventDefault();
-        $('#container').addClass('hidden');
+        $('#lobbyDiv').addClass('hidden');
         socket.emit('create room', roomname);
         joinRoom(roomname);
         
@@ -35,7 +30,7 @@ $(function () {
     });
 
     socket.on('new name list', function(usernames) {
-        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2>Users Online:</h2>');
+        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2 class="hidden">Users Online:</h2>');
         $('.everybodyonline').html(userList)
     });
 
@@ -65,9 +60,6 @@ $(function () {
         let players = gameData.data.players;        // object containing player information, indexed by player name
         let event = roomdata.event;                 // string describing what happened in the room:
                                                     // 'new turn', 'new message', 'user joined', 'user left', 'created room', and 'action submitted'
-
-        console.log('room update:');
-        console.log(roomdata);
 
         if (event == 'new turn') timeLeft = 10;
 
@@ -162,7 +154,7 @@ $(function () {
     $('#leaveroombutton').click(function(){
         socket.emit('leave room');
         currentRoom = 'lobby';
-        $('#container').removeClass('hidden');
+        $('#lobbyDiv').removeClass('hidden');
         $('.lobby').removeClass('hidden');
         $('#gameScreen').addClass('hidden');
         $('.everybodyonline').removeClass('hidden');
@@ -175,4 +167,60 @@ $(function () {
         $('.roomchat').removeClass('hidden');
         $('.everybodyonline').addClass('hidden');
     };
+
+    $("#viewProfile").on('click', (e) =>{
+        $('#profileDiv').removeClass('hidden');
+        $('#lobbyDiv').addClass('hidden');
+        $('#gameScreen').addClass('hidden');
+    });
+
+    $('#lobbyReturn').on('click', (e) =>{
+        $('#profileDiv').addClass('hidden');
+        $('#lobbyDiv').removeClass('hidden');
+    });
+
+    $('#loginButton').on('click', (e) =>{
+        let username1 = $('#userNameInput').val();
+        let password1 = $('#passwordInput').val();
+        let credentials = {
+            username: username1,
+            password: password1
+        }
+        socket.emit('login', credentials);
+    });
+
+    socket.on('login successful', () => {
+        $('#lobbyDiv').removeClass('hidden');
+        $('#welcomeInputDiv').addClass('hidden');
+    });
+
+    socket.on('login unsuccessful', () => {
+        $('#loginFailed').removeClass('hidden');
+        alert('fail')
+    });
+
+    $('#newAccount').on('click', (e) => {
+        $('#welcomeDiv').addClass('hidden');
+        $('#newUserDiv').removeClass('hidden');
+    });
+
+    $('#makeAccount').on('click', (e) =>{
+        let username2 = $('#newUserNameInput').val();
+        let password2 = $('#newPasswordInput').val();
+        let credentials = {
+            username: username2,
+            password: password2
+        }
+        socket.emit('signup', credentials);
+    });
+    
+    socket.on('signup successful', () => {
+        $('#lobbyDiv').removeClass('hidden');
+        $('#newUserDiv').addClass('hidden');
+    });
+    
+    socket.on('signup unsuccessful', ()=>{
+        $('#signupFailed').removeClass('hidden');
+    });
+
 });

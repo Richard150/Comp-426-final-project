@@ -14,6 +14,13 @@
       height: 0px;
 }
 
+#lobbyLeftSide{
+      display: grid;
+      grid-template-rows: 1fr 6fr;
+      padding: 1rem 1rem 1rem;
+      height: 90vh;
+}
+
 .roomchat {
       display: grid;
       grid-template-columns: 2fr 3fr 1fr;
@@ -60,8 +67,16 @@
       gap: 4px;
 }
 
+#viewProfile{
+      height: 10vh;
+      width: 30vw;
+      font-size: 100%
+}
 
-
+#userBox{
+      border: 1px solid gray;
+      padding: 1rem 1rem 1rem;
+}
 
 .chatbox{
       border: 1px solid black;
@@ -135,6 +150,17 @@
       font-size: 150%;
 }
 
+#welcomeInputDiv{
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+      gap: 1rem;
+}
+
+.welcomeInput{
+      width: 30vw;
+}
+
+
 body{
       background: white;
       font-family: "Courier New", Courier, monospace;
@@ -149,7 +175,7 @@ body{
       text-transform: none;
 }
 
-#container{
+#lobbyDiv{
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 2px;
@@ -167,10 +193,12 @@ body{
       border: 2px solid gray;
       box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.11);
       background: #f7f5f5;
-      padding: 0 1.5rem 0;
+      padding: 1.5rem 1.5rem 1.5rem;
       height: 90vh;
       
 }
+
+
 
 Button {
       font-family: "Courier New", Courier, monospace;
