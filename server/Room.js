@@ -51,15 +51,13 @@ class Room {
         if(!this.gameData.live) {
             if(livingPlayers.length == 0) {
                 this.gameData.winner = '$nobody';
-                usernames.forEach(name => Account.addLoss(name));
-                // addLoss everyone
+                usernames.forEach(name => Account.addGamesPlayed(name));
+                // addGamesPlayed everyone
             } else {
                 this.gameData.winner = usernames.find(p => data.players[p].health > 0);
                 Account.addWin(this.gameData.winner);
-                // addLoss (everyone else)
-                for (let i = 0; i < usernames.length; i++) {
-                    if (usernames[i] !== this.game.winner) { Account.addLoss(usernames[i]); }
-                }
+                // addGamesPlayed everyone
+                usernames.forEach(name => Account.addGamesPlayed(name));
                 
             }
         } else {
