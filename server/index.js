@@ -1,6 +1,7 @@
 const PORT = process.env.PORT || 5000;
 
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
@@ -38,6 +39,8 @@ app.get('/client.js', (req, res) => {
 app.get('/style.css', (req, res) => {
     res.sendFile('style.css', {root: path.join(__dirname, '../client')});
 });
+
+app.use('/avatars', express.static(path.join(__dirname, '../avatars')));
 
 io.on('connection', (socket) => {
 
@@ -122,7 +125,7 @@ io.on('connection', (socket) => {
                 socket.emit('login successful');
                 socket.loggedIn = true;
                 socket.userName = username;
-                usernames[socket.id] = name;
+                usernames[socket.id] = username;
                 joinLobby(socket);
 
             } else {
@@ -142,7 +145,7 @@ io.on('connection', (socket) => {
                 socket.emit('signup successful');
                 socket.loggedIn = true;
                 socket.userName = username;
-                usernames[socket.id] = name;
+                usernames[socket.id] = username;
                 Account.create(username, password.substring(0,3), 0);
                 joinLobby(socket);
             }

@@ -24,10 +24,10 @@ $(function () {
         socket.emit('send message', message);
     });
 
-    socket.on('online count', function(usersOnline) {
-        $('#oc').html(usersOnline);
+    // socket.on('online count', function(usersOnline) {
+    //     $('#oc').html(usersOnline);
         
-    });
+    // });
 
     socket.on('new name list', function(usernames) {
         let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2 class="hidden">Users Online:</h2>');
@@ -62,6 +62,9 @@ $(function () {
                                                     // 'new turn', 'new message', 'user joined', 'user left', 'created room', and 'action submitted'
 
         if (event == 'new turn') timeLeft = 10;
+
+        console.log('room update');
+        console.log(roomdata);
 
         /**
          * players['bob'].health = bob's health (0, 1, 2, 3, 4)
@@ -163,6 +166,7 @@ $(function () {
     function joinRoom(roomname) {
         currentRoom = roomname;
         socket.emit('join room', roomname);
+        $('#lobbyDiv').addClass('hidden');
         $('.lobby').addClass('hidden');
         $('.roomchat').removeClass('hidden');
         $('.everybodyonline').addClass('hidden');
@@ -186,6 +190,9 @@ $(function () {
             username: username1,
             password: password1
         }
+
+        myName = username1;
+
         socket.emit('login', credentials);
     });
 
@@ -195,8 +202,7 @@ $(function () {
     });
 
     socket.on('login unsuccessful', () => {
-        $('#loginFailed').removeClass('hidden');
-        alert('fail')
+        $('#failedLogin').removeClass('hidden');
     });
 
     $('#newAccount').on('click', (e) => {
@@ -205,13 +211,21 @@ $(function () {
     });
 
     $('#makeAccount').on('click', (e) =>{
-        let username2 = $('#newUserNameInput').val();
+        let username2 = $('#newNameInput').val();
         let password2 = $('#newPasswordInput').val();
         let credentials = {
             username: username2,
             password: password2
         }
+
+        myName = username2;
+
         socket.emit('signup', credentials);
+    });
+
+    $('#signupBackButton').on('click', () => {
+        $('#newUserDiv').addClass('hidden');
+        $('#welcomeDiv').removeClass('hidden');
     });
     
     socket.on('signup successful', () => {
@@ -220,7 +234,7 @@ $(function () {
     });
     
     socket.on('signup unsuccessful', ()=>{
-        $('#signupFailed').removeClass('hidden');
+        $('#failedSignup').removeClass('hidden');
     });
 
 });
