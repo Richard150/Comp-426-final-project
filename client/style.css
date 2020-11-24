@@ -168,6 +168,9 @@
             overflow-y:auto;
       }
 
+      .availablerooms{
+            overflow-y:auto;
+      }
 
       .chatform{
             display: grid;
