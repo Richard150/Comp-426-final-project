@@ -143,7 +143,11 @@
           font-size: 50%;  
       }
       
-      
+      .everybodyonline{
+            overflow-y:auto;
+      }
+
+
       .chatform{
             display: grid;
             grid-template-columns: 7fr 1fr;
