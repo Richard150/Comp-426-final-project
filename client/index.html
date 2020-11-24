@@ -22,10 +22,7 @@
     </div>
 
     <div id="newUserDiv" class="filler hidden">
-      <div>
       <h1>Create a new colosseum account</h1>
-      <p>*only alphanumeric characters are allowed</p>
-    </div>
       <form class="nameform" action="">
           <div id="newUserInputDiv">
               <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
@@ -65,7 +62,34 @@
         </form>
     </div>
 </div>
+      <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
+    </div>
 
+    <div id="lobbyDiv" class="hidden">
+      <div id="lobbyLeftSide" class="gridItem">
+          <div class="lobbyLeftItem">
+              <div><button class="abutton" type="button" id="viewProfile">Click To View Your Profile</button></div>
+              <div><button class="abubtton" type="button" id="viewRules">Click Here To View The Rules</button></div>
+              <form>
+                <p>Search for a player to view their profile</p>
+                <input class="search" id="userSearch" autocomplete="off" maxlength="20"/>
+                <button id="searchSubmit">search</button>
+                <p id="notfound" class="hidden">User not found. Please try again</p>
+              </form>
+          </div>
+          <div>
+              <p id="usersText"><strong>Users Online</strong></p>
+              <div id="userBox" class="everybodyonline widget lobbyLeftItem"></div>
+          </div>
+      </div>
+      <div class="lobby widget gridItem">
+          <div class='availablerooms'></div>
+          <form class="createroomform" action="">
+              <input class="css-input" id="roomnamefield" autocomplete="off" maxlength="20"/>
+              <button>create room</button>
+          </form>
+      </div>
+    </div>
 
 
         <div id="gameScreen" class="roomchat widget hidden">
@@ -101,37 +125,55 @@
             <div id="profileAvatar"></div>
 
             <br>
+            
             Username: <span class='userStats username'></span>
-            <br>
-            Wins: <span class='wins'></span>
-            <br>
-            Games played: <span class='userStats gamesPlayed'></span>
-            <br>
-            Successful Attacks: <span class='userStats successfulAttacks'></span>
-            <br>
-            Failed Attacks: <span class='userStats failedAttacks'></span>
-            <br>
-            Successful Blocks: <span class='userStats successfulBlocks'></span>
-            <br>
-            Failed Blocks: <span class='userStats failedBlocks'></span>
-            <br>
-            Successful Counters: <span class='userStats successfulCounters'></span>
-            <br>
-            Failed Counters: <span class='userStats failedCounters'></span>
-            <br>
-            Successful Heals: <span class='userStats successfulHeals'></span>
-            <br>
-            Failed Heals: <span class='userStats failedHeals'></span>
-            <br>
-            Total Repairs: <span class='userStats totalRepairs'></span>
             <br>
             <button id="chooseAvatar" type="button">Select new avatar</button>
             <button class="lobbyReturn" type="button">Return to lobby</button>
-            <button id="logoutButton" type="button">Logout</button>
             <div id='profileDeleter'>
-                Enter "DELETEME" into the following text box to permanently delete your account
-                <br><input id="DELETEME" /> <button id="deleteProfile">Delete profile</button>
+              Enter "DELETEME" into the following text box to permanently delete your account
+              <br><input id="DELETEME" /> <button id="deleteProfile">Delete profile</button>
+          </div>
+            <div class = "split left">
+            <div class = "centered">
+              <div class = "caps">
+                Marvel at your triumph!
+              </div>
+              Wins: <span class='wins'></span>
+              <br>
+              Successful Attacks: <span class='userStats successfulAttacks'></span>
+              <br>
+              Successful Heals: <span class='userStats successfulHeals'></span>
+              <br>
+              Successful Blocks: <span class='userStats successfulBlocks'></span>
+              <br>
+              Successful Counters: <span class='userStats successfulCounters'></span>
+              <br>
+
             </div>
+            </div>
+            <div class = "split right">
+              <div class = "centered">
+
+                <div class = "caps">
+                
+                  Improve in these areas!
+                </div>
+              Games played: <span class='userStats gamesPlayed'></span>
+              <br>
+              Failed Attacks: <span class='userStats failedAttacks'></span>
+              <br>
+              Failed Heals: <span class='userStats failedHeals'></span>
+              <br>
+              Failed Blocks: <span class='userStats failedBlocks'></span>
+              <br>
+              Failed Counters: <span class='userStats failedCounters'></span>
+              <br>
+              Total Repairs: <span class='userStats totalRepairs'></span>
+            <br>
+              </div>
+
+              </div>
             
             <!-- <header>
                 <div class = "left">

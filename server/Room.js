@@ -55,7 +55,7 @@ class Room {
                 // addGamesPlayed everyone
             } else {
                 this.gameData.winner = usernames.find(p => data.players[p].health > 0);
-                if (username.length > 1) Account.addWin(this.gameData.winner);
+                if (usernames.length > 1) Account.addWin(this.gameData.winner);
                 // addGamesPlayed everyone
                 usernames.forEach(name => Account.addGamesPlayed(name));
                 

@@ -276,8 +276,18 @@ Account.getTotalRepairs = (username) => {
 }
 
 Account.getAllUsers = () => {
-    return Object.keys(account_data.data).map(username => { return username} );
+    return Object.keys(account_data.data);
     // returns array of all account ID's
+}
+
+Account.getAllAvatars = () => {
+    return Object.values(account_data.data).map(u => u.avatar);
+}
+
+Account.getAllUsersAndAvatars = () => {
+    return Object.values(account_data.data).map(u => {
+        return 
+    })
 }
 
 Account.findByUsername = (username) => {
@@ -296,5 +306,7 @@ Account.create = (username, password, avatar) => {
     account_data.set(a.username, a);
     return a;
 }
+
+console.log(Account.getAllAvatars());
 
 module.exports = Account;

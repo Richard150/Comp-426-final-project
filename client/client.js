@@ -302,7 +302,7 @@ $(function () {
 
     $('#deleteProfile').on('click', function() {
         let confirmation = $('#DELETEME').val();
-        console.log('delete plsz');
+        console.log(allUsers);
         if (confirmation == 'DELETEME') {
             socket.emit('delete profile');
             $('body').empty();

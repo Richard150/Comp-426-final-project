@@ -122,6 +122,7 @@ io.on('connection', (socket) => {
                 socket.loggedIn = true;
                 socket.userName = username;
                 usernames[socket.id] = username;
+                socket.emit('everybody', Account.getAllUsers());
                 joinLobby(socket);
 
             } else {
@@ -145,6 +146,7 @@ io.on('connection', (socket) => {
                 socket.userName = username;
                 usernames[socket.id] = username;
                 Account.create(username, password.substring(0,3), 0);
+                io.emit('everybody', Account.getAllUsers());
                 joinLobby(socket);
             }
         }
@@ -196,7 +198,6 @@ io.on('connection', (socket) => {
 let joinLobby = (socket) => {
     socket.join('lobby');
     registry[socket.id] = 'lobby';
-    io.emit('everybody', Account.getAllUsers());
     io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
 }
 
