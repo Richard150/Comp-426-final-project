@@ -309,20 +309,5 @@ Account.create = (username, password, avatar) => {
     account_data.set(a.username, a);
     return a;
 }
-console.log(Account.getAllAvatars());
-console.log(Account.getAllUsers());
-console.log(Account.getAllUsersAndAvatars().map(str => str.slice(2)));
-
-let avatarLibrary = {};
-Account.getAllUsersAndAvatars().forEach(str => {
-    avatarLibrary[str.slice(2)] = str.substring(0,2);
-});
-console.log(avatarLibrary);
-
-let arr = ['cat', 'dog', 'mouse'];
-console.log(arr['0']);
-console.log(arr['1']);
-console.log(arr[parseInt('00')]);
-console.log(arr[undefined || 0]);
 
 module.exports = Account;
