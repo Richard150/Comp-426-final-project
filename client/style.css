@@ -429,6 +429,11 @@
       }
          */
 
+         .actionmenu{
+               overflow-y: auto;
+               
+         }
+
          #auto-list {
             
             position: relative;
