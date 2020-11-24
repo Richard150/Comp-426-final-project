@@ -320,6 +320,9 @@ $(function () {
         $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
     });
 
+    $('body').on('click', (e) =>{
+        $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+    });
 
     $('#userSearch').on('input',function(e){
         $('#notfound').addClass('hidden');

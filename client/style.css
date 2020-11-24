@@ -16,10 +16,20 @@
       
       #lobbyLeftSide{
             display: grid;
-            grid-template-rows: 1fr 6fr;
+            grid-template-rows: 6fr 1fr ;
             padding: 1rem 1rem 1rem;
-            height: 90vh;
+            height: 92vh;
+            gap: 2rem;
       
+      }
+
+      #anotherOne{
+            display: grid;
+            grid-template-columns: 2fr 1fr 3fr;
+      }
+
+      #userSearch{
+            width: 20vw;
       }
 
       .lobbyLeftItem{
@@ -31,8 +41,23 @@
 
       }
 
+      #moreDivs{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+      }
+
       #usersText{
+            justify-self: start;
             font-size: 150%;
+      }
+
+      #viewProfile{
+            height: 8vh;
+            width: 30vw;
+      }
+      #viewRules{
+            height: 8vh;
+            width: 30vw;
       }
 
       #userBox{
@@ -85,11 +110,7 @@
             gap: 4px;
       }
       
-      #viewProfile{
-            height: 10vh;
-            width: 30vw;
-            font-size: 100%
-      }
+ 
       
       img {
             image-rendering: pixelated;
@@ -98,15 +119,13 @@
       }
           
       
-      #viewRules{
-            height: 10vh;
-            width: 30vw;
-            font-size: 100%
-      }
+
       
       #userBox{
             border: 1px solid gray;
             padding: 1rem 1rem 1rem;
+            overflow-y: auto;
+            height: 40vh;
       }
       
       .chatbox{
@@ -187,7 +206,8 @@
       
       #lobbyButtons{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 5px;
       }
 
       #leaveroombutton{
@@ -405,5 +425,21 @@
             border-color: maroon;
       }
          */
+
+         #auto-list {
+            
+            position: relative;
+            display: inline-block;
+            height: 20vh;
+            width: 20vw;
+            overflow-y: auto;
+            background: white;
+          }
+
+          .autocomplete-items {
+      
+            cursor: pointer;
+           
+          }
         
       

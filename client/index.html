@@ -44,24 +44,28 @@
     </div>
     <div id="lobbyLeftSide" class="gridItem">
         <div class="lobbyLeftItem">
-          <div id="lobbyButtons">
-            <div><button class="abutton" type="button" id="viewProfile">Click Here To View Your Profile</button></div>
-            <div><button class="abubtton" type="button" id="viewRules">Click Here To View The Rules</button></div>
-          </div>
-          <div>
             <p id="usersText"><strong>Users Online</strong></p>
             <div id="userBox" class="everybodyonline widget lobbyLeftItem"></div>
-        </div>
+          </div>
+          <div id="moreDivs">
             <form>
               <p>Search for a player to view their profile</p>
-              <div id="autocompleteDiv">
-                <input class="search autocomplete" id="userSearch" placeholder="username" autocomplete="off" maxlength="20"/>
-                <div id="auto-list" class="hidden"><p>test</p></div>
+              <div id="anotherOne">
+                <div id="autocompleteDiv">
+                  <input class="search autocomplete" id="userSearch" placeholder="username" autocomplete="off" maxlength="20"/>
+                  <div id="auto-list" class="hidden"><p>test</p></div>
+                </div>
+                <button id="searchSubmit">search</button>
+                <div></div>
               </div>
-              <button id="searchSubmit">search</button>
               <p id="notfound" class="hidden">User not found. Please try again</p>
             </form>
-        </div>
+            <div id="lobbyButtons">
+              <div><button class="abutton" type="button" id="viewProfile">Click Here To View Your Profile</button></div>
+              <div><button class="abutton" type="button" id="viewRules">Click Here To View The Rules</button></div>
+            </div>
+          </div>
+
     </div>
 </div>
       <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
