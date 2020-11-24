@@ -1,3 +1,5 @@
+# Colosseum
+
 Colosseum is a fun online game made by:
 
 Noah Van Hook
@@ -9,6 +11,8 @@ Philip Wall
 Richard Johnson
 
 ...with artwork courtesy of HAS Creature Pack by Aleksandr Makarov!
+
+The game can be played here: http://colosseumgame.herokuapp.com/
 
 ## socket&#46;io events
 #### Client to Server
