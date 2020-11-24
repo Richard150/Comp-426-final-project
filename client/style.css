@@ -62,6 +62,24 @@
             width: 30vw;
       }
 
+      #rulesDiv {
+            object-position: 20% 0%;
+            object-fit: cover;
+            height: 60vh;
+            background-image: url('https://thumbs.dreamstime.com/z/gladiator-fighting-barbarian-coliseum-arena-ancient-roman-armored-spartan-warrior-dark-skinned-moor-fight-swords-greek-161793556.jpg');
+      }
+
+      #rulesH1 {
+            text-align: center;
+      }
+
+      #rulesList {
+            border: 1px solid black;
+            background: #fff7f3;
+            height: 55vh;
+            font-size: x-large;
+      }
+
       #userBox{
             height: 8vh;
       }
