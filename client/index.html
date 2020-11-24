@@ -13,7 +13,7 @@
         <form class="nameform" action="">
             <div id="welcomeInputDiv">
                 <input id="userNameInput" class="welcomeInput actualInput" placeholder="username" autocomplete="off" maxlength="20"/>
-                <input id="passwordInput" class="welcomeInput actualInput" placeholder="password" autocomplete="off" maxlength="20"/>
+                <input id="passwordInput" class="welcomeInput actualInput" placeholder="password" autocomplete="off" maxlength="20" style="-webkit-text-security: disc;" />
                 <button id="loginButton" class="welcomeInput">Login</button>
                 <button id="newAccount" class="welcomeInput">Create New Account</button>
             </div>
@@ -26,7 +26,7 @@
       <form class="nameform" action="">
           <div id="newUserInputDiv">
               <input id="newNameInput" class="newUserInput" placeholder="username" autocomplete="off" maxlength="20"/>
-              <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20"/>
+              <input id="newPasswordInput" class="newUserInput" placeholder="password" autocomplete="off" maxlength="20" style="-webkit-text-security: disc;" />
               <button id="makeAccount" class="newUserInput">Sign Up</button>
               <button id="signupBackButton">Back</button>
           </div>
