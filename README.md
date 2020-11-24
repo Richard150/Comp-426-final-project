@@ -1,8 +1,13 @@
 Colosseum is a fun online game made by:
+
 Noah Van Hook
+
 Emilia Patiño
+
 Philip Wall
+
 Richard Johnson
+
 ...with artwork courtesy of HAS Creature Pack by Aleksandr Makarov!
 
 ## socket&#46;io events
