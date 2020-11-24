@@ -186,6 +186,7 @@ io.on('connection', (socket) => {
             delete usernames[socket.id];
             delete registry[socket.id];
 
+            io.emit('everybody', Account.getAllUsers());
             io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
     });
@@ -195,6 +196,7 @@ io.on('connection', (socket) => {
 let joinLobby = (socket) => {
     socket.join('lobby');
     registry[socket.id] = 'lobby';
+    io.emit('everybody', Account.getAllUsers());
     io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
 }
 

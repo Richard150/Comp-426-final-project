@@ -9,6 +9,7 @@ $(function () {
     let socket = io();
     let myName = '';
     let currentRoom = 'lobby';
+    let allUsers = [];
 
     $('form').submit(function(e) {
         e.preventDefault();
@@ -34,6 +35,10 @@ $(function () {
     //     $('#oc').html(usersOnline);
         
     // });
+
+    socket.on('everybody', (everybody) => {
+        allUsers = everybody;
+    });
 
     socket.on('lobby update', function(lobbyInfo) {
         let usernames = lobbyInfo.usernames;
