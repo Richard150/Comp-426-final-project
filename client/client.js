@@ -307,7 +307,10 @@ $(function () {
         }
     });
 
-    $('#searchSubmit').on('click', (e) => {
-
+    $('#logoutButton').on('click', () => {
+        location.reload();
+        alert('hi');
     });
+
+
 });
