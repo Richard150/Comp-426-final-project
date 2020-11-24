@@ -180,6 +180,7 @@ io.on('connection', (socket) => {
         if (socket.loggedIn) {
             Account.setAvatar(socket.userName, avatarID);
             io.emit('avatar changed', {username: socket.userName, avatar: avatarID});
+            io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
     });
 
@@ -220,6 +221,7 @@ let leaveRoom = (socket) => {
     let room = rooms[roomName];
     if (roomName != 'lobby' && roomName != undefined && room != undefined) {
         room.userLeave(socket);
+        socket.emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         if (room.userList.length == 0) {
             delete rooms[roomName];
             io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
