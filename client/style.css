@@ -100,11 +100,32 @@
       #notFound{
             padding: 1rem 1rem 1rem;
       }
-      /* #viewRules{
+      
+      /*#viewRules{
             height: 10vh;
             width: 30vw;
             font-size: 100%
-      } */
+      }*/
+
+      #rulesDiv {
+            object-position: 20% 0%;
+            object-fit: cover;
+            height: 60vh;
+            background-image: url('https://thumbs.dreamstime.com/z/gladiator-fighting-barbarian-coliseum-arena-ancient-roman-armored-spartan-warrior-dark-skinned-moor-fight-swords-greek-161793556.jpg');
+      }
+
+      #rulesH1 {
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+      }
+
+      #rulesList {
+            border: 1px solid black;
+            background: #fff7f3;
+            height: 55vh;
+            font-size: x-large;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+      }
       
       #userBox{
             border: 1px solid gray;
