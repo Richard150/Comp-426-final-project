@@ -124,7 +124,7 @@ $(function () {
         // render chat & userlist
         let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${getAvatar(curr)} ${curr} (Host)` : `<br>${getAvatar(curr)} ${curr}`, '<strong>Users Online:</strong>');
         $('.usersinroom').html(userList);
-        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${getAvatar(curr.substr(0, curr.indexOf(':')))} ${curr}`, '<strong class="hidden">Chat</strong>'));
+        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${getAvatar(curr.substr(0, curr.indexOf(':')))} ${curr}`, ''));
         // render game
         let summary = turnSummary.reduce((acc, curr) => acc += `<br>${curr}`, '<strong class="statutTitle hidden">Turn Summary:</strong>');
         $('.turnsummary').html(summary);
