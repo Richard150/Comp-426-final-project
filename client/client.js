@@ -309,7 +309,6 @@ $(function () {
 
     $('#logoutButton').on('click', () => {
         location.reload();
-        alert('hi');
     });
 
 
