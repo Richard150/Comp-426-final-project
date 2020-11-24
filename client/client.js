@@ -349,11 +349,14 @@ $(function () {
     //autocomplete($("#userSearch"), allUsers);
     $('#userSearch').on('click',function(e){
         $('#notfound').addClass('hidden');
-        $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+        $('#auto-list').addClass('hidden');
+        //$('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
     });
 
     $('body').on('click', (e) =>{
-        $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+        $('#auto-list').addClass('hidden');
+        $('#notfound').addClass('hidden');
+        //$('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
     });
 
     $('#userSearch').on('input',function(e){
