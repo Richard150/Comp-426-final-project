@@ -77,7 +77,7 @@ class Room {
 
     submitAction(socket, action) {
         let target = undefined;
-        if (this.userList.includes(socket.userName)) { 
+        if (this.userList.includes(socket.userName) && this.game != undefined) { 
             if (action != 'block' && action != 'counter' && action != 'repair' && action != 'heal' && action != 'die') {
                 target = action;
                 action = 'attack';
