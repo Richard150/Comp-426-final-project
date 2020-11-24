@@ -10,6 +10,7 @@ $(function () {
     let myName = '';
     let currentRoom = 'lobby';
     let allUsers = [];
+    let avatarLibrary = {};
 
     $('form').submit(function(e) {
         e.preventDefault();
@@ -37,14 +38,48 @@ $(function () {
     // });
 
     socket.on('everybody', (everybody) => {
-        allUsers = everybody;
+        allUsers = everybody.map(str => str.slice(2));
+        everybody.forEach(str => {
+            avatarLibrary[str.slice(2)] = parseInt(str.substring(0,2));
+        });
     });
+
+    socket.on('account deleted', (username) => {
+        delete avatarLibary[username];
+        let idx = allUsers.indexOf(username);
+        if (idx > -1) allUsers.splice(idx, 1);
+    });
+
+    socket.on('avatar changed', (data) => {
+        let username = data.username;
+        let avatar = data.avatar;
+
+        avatarLibrary[username] = avatar;
+    });
+
+    socket.on('account created', (data) => {
+        let username = data.username;
+        let avatar = data.avatar;
+
+        avatarLibrary[username] = avatar;
+        allUsers.push(username);
+    });
+
+    //<img style='width:160px;height:160px' src='/avatars/Icon${avatars[profile.avatar]}.png' alt=${avatars[profile.avatar]}>
+    function getAvatar(username) {
+        let avatarID = 0;
+
+        if (avatarLibrary[username] != undefined) avatarID = avatarLibrary[username];
+
+        let avatar = avatars[avatarID];
+        return `<img src='/avatars/Icon${avatar}.png'>`
+    }
 
     socket.on('lobby update', function(lobbyInfo) {
         let usernames = lobbyInfo.usernames;
         let rooms = lobbyInfo.rooms;
 
-        let userList = usernames.reduce((acc, curr) => acc += `<br>${curr}`, '<h2 class="hidden">Users Online:</h2>');
+        let userList = usernames.reduce((acc, curr) => acc += `<br>${getAvatar(curr)} ${curr}`, '<h2 class="hidden">Users Online:</h2>');
         $('.everybodyonline').html(userList)
 
         let roomList = rooms.reduce((acc, curr) => acc += `<br><button class="roombutton" id="room-${curr}">Join ${curr}</button>`, '<h2>Join a room or create your own!</h2>');
@@ -87,9 +122,9 @@ $(function () {
          */
 
         // render chat & userlist
-        let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${curr} (Host)` : `<br>${curr}`, '<strong>Users Online:</strong>');
+        let userList = usernames.reduce((acc, curr) => acc += curr == leader ? `<br>${getAvatar(curr)} ${curr} (Host)` : `<br>${getAvatar(curr)} ${curr}`, '<strong>Users Online:</strong>');
         $('.usersinroom').html(userList);
-        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${curr}`, '<strong class="hidden">Chat</strong>'));
+        $('.chatbox').html(chatlog.reduce((acc, curr) => acc += `<br>${getAvatar(curr)} ${curr}`, '<strong class="hidden">Chat</strong>'));
 
         // render game
         let summary = turnSummary.reduce((acc, curr) => acc += `<br>${curr}`, '<strong class="statutTitle hidden">Turn Summary:</strong>');
@@ -100,7 +135,7 @@ $(function () {
         $status.html('');
         $status.append('<strong class="statutTitle hidden">Player Status:</strong>');
         Object.keys(players).forEach(p => {
-            $status.append(`<br>${p} `);
+            $status.append(`<br>${getAvatar(p)} ${p} `);
 
             if (players[p].health < 1) {
                 $status.append('☠');
@@ -197,8 +232,6 @@ $(function () {
         $('#chooseAvatar').addClass('hidden');
         
     });
-
-    
 
     socket.on('profile request denied', () => {
         $('#notfound').removeClass('hidden');

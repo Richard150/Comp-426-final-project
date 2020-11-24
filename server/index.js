@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
                 socket.loggedIn = true;
                 socket.userName = username;
                 usernames[socket.id] = username;
-                socket.emit('everybody', Account.getAllUsers());
+                socket.emit('everybody', Account.getAllUsersAndAvatars());
                 joinLobby(socket);
 
             } else {
@@ -146,7 +146,8 @@ io.on('connection', (socket) => {
                 socket.userName = username;
                 usernames[socket.id] = username;
                 Account.create(username, password.substring(0,3), 0);
-                io.emit('everybody', Account.getAllUsers());
+                socket.emit('everybody', Account.getAllUsersAndAvatars());
+                socket.broadcast.emit('account created', {username: username, avatar: Account.getAvatar(username)});
                 joinLobby(socket);
             }
         }
@@ -178,6 +179,7 @@ io.on('connection', (socket) => {
     socket.on('change avatar', (avatarID) => {
         if (socket.loggedIn) {
             Account.setAvatar(socket.userName, avatarID);
+            io.emit('avatar changed', {username: socket.userName, avatar: avatarID});
         }
     });
 
@@ -188,7 +190,7 @@ io.on('connection', (socket) => {
             delete usernames[socket.id];
             delete registry[socket.id];
 
-            io.emit('everybody', Account.getAllUsers());
+            io.emit('account deleted', socket.userName);
             io.to('lobby').emit('lobby update', {usernames: Object.values(usernames), rooms: Object.keys(rooms)});
         }
     });
