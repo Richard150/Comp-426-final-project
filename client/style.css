@@ -185,6 +185,11 @@
             gap: 2rem;
       }
       
+      #lobbyButtons{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+      }
+
       #leaveroombutton{
             justify-self: bottom;
             height: 5vh;

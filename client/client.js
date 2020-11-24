@@ -317,6 +317,7 @@ $(function () {
     //autocomplete($("#userSearch"), allUsers);
     $('#userSearch').on('click',function(e){
         $('#notfound').addClass('hidden');
+        $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
     });
 
 
@@ -339,26 +340,6 @@ $(function () {
         }
         
    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 });

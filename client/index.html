@@ -35,10 +35,23 @@
   </div>
 
   <div id="lobbyDiv" class="hidden">
+    <div class="lobby widget gridItem">
+      <div class='availablerooms'></div>
+      <form class="createroomform" action="">
+          <input class="css-input" id="roomnamefield" placeholder="room name" autocomplete="off" maxlength="20"/>
+          <button>create room</button>
+      </form>
+    </div>
     <div id="lobbyLeftSide" class="gridItem">
         <div class="lobbyLeftItem">
-            <div><button class="abutton" type="button" id="viewProfile">Click To View Your Profile</button></div>
+          <div id="lobbyButtons">
+            <div><button class="abutton" type="button" id="viewProfile">Click Here To View Your Profile</button></div>
             <div><button class="abubtton" type="button" id="viewRules">Click Here To View The Rules</button></div>
+          </div>
+          <div>
+            <p id="usersText"><strong>Users Online</strong></p>
+            <div id="userBox" class="everybodyonline widget lobbyLeftItem"></div>
+        </div>
             <form>
               <p>Search for a player to view their profile</p>
               <div id="autocompleteDiv">
@@ -49,17 +62,6 @@
               <p id="notfound" class="hidden">User not found. Please try again</p>
             </form>
         </div>
-        <div>
-            <p id="usersText"><strong>Users Online</strong></p>
-            <div id="userBox" class="everybodyonline widget lobbyLeftItem"></div>
-        </div>
-    </div>
-    <div class="lobby widget gridItem">
-        <div class='availablerooms'></div>
-        <form class="createroomform" action="">
-            <input class="css-input" id="roomnamefield" placeholder="room name" autocomplete="off" maxlength="20"/>
-            <button>create room</button>
-        </form>
     </div>
 </div>
       <span id="failedSignup" class="hidden">Signup unsuccessful. Username already taken.</span>
