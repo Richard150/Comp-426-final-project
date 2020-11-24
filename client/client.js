@@ -198,9 +198,7 @@ $(function () {
         
     });
 
-    $('#userSearch').on('click', (e) =>{
-        $('#notfound').addClass('hidden');
-    });
+    
 
     socket.on('profile request denied', () => {
         $('#notfound').removeClass('hidden');
@@ -315,6 +313,52 @@ $(function () {
     $('#logoutButton').on('click', () => {
         location.reload();
     });
+
+    //autocomplete($("#userSearch"), allUsers);
+    $('#userSearch').on('click',function(e){
+        $('#notfound').addClass('hidden');
+    });
+
+
+    $('#userSearch').on('input',function(e){
+        $('#notfound').addClass('hidden');
+        $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+        let str = $('#userSearch').val();
+        let newArr = allUsers.filter((p) => p.substr(0, str.length).toUpperCase() === str.toUpperCase());
+        if (newArr.length !== 0){
+            for (let i = 0; i < newArr.length; i++){
+                $('#auto-list').append(`<div class="autocomplete-items" id="${i}item"><p>${newArr[i]}</p></div>`);
+                $(`#${i}item`).on('click', function(e){
+                    $('#userSearch').val(newArr[i]);
+                    $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+                });
+            }
+            $('#auto-list').removeClass('hidden');
+        } else {
+            $('#auto-list').html(`<div id="auto-list" class="hidden"></div>`);
+        }
+        
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 });

@@ -44,7 +44,10 @@
             <div><button class="abubtton" type="button" id="viewRules">Click Here To View The Rules</button></div>
             <form>
               <p>Search for a player to view their profile</p>
-              <input class="search" id="userSearch" autocomplete="off" maxlength="20"/>
+              <div id="autocompleteDiv">
+                <input class="search autocomplete" id="userSearch" placeholder="username" autocomplete="off" maxlength="20"/>
+                <div id="auto-list" class="hidden"><p>test</p></div>
+              </div>
               <button id="searchSubmit">search</button>
               <p id="notfound" class="hidden">User not found. Please try again</p>
             </form>
@@ -57,7 +60,7 @@
     <div class="lobby widget gridItem">
         <div class='availablerooms'></div>
         <form class="createroomform" action="">
-            <input class="css-input" id="roomnamefield" autocomplete="off" maxlength="20"/>
+            <input class="css-input" id="roomnamefield" placeholder="room name" autocomplete="off" maxlength="20"/>
             <button>create room</button>
         </form>
     </div>
