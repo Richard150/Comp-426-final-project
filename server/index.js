@@ -135,7 +135,9 @@ io.on('connection', (socket) => {
             let username = credentials.username;
             let password = credentials.password;
 
-            if(forbiddenNames.includes(username) || Account.userExists(username)) {
+            cleanName = name.replace(/\W/g,'').substring(0,20);
+
+            if(cleanName != name || forbiddenNames.includes(username) || Account.userExists(username)) {
                 socket.emit('signup unsuccessful');
             } else {
                 socket.emit('signup successful');
