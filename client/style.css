@@ -45,6 +45,7 @@
       #moreDivs{
             display: grid;
             grid-template-columns: 1fr 1fr;
+            height: 30vh;;
       }
 
       #usersText{
@@ -208,7 +209,7 @@
       
       #lobbyButtons{
             display: grid;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
             gap: 5px;
       }
 
@@ -432,10 +433,12 @@
             
             position: relative;
             display: inline-block;
-            height: 20vh;
+            height: 11vh;
             width: 20vw;
             overflow-y: auto;
             background: white;
+            z-index: 99;
+            padding: 0rem 1rem 1rem;
           }
 
           .autocomplete-items {
